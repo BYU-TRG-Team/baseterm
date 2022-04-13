@@ -1,0 +1,24 @@
+.termbases-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.termbases-page__heading {
+  padding: 5px 0 20px 0;
+  margin: 0;
+}
+
+.termbases-page__link {
+  text-decoration: none;
+}
+
+.termbases-page__link:hover {
+  text-decoration: underline;
+}
+
+.termbases-page__button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,32 @@
+.filter-widget {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.filter-widget__button {
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.filter-widget__content-container {
+  background: rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.filter-widget__content-container-heading {
+  font-size: 20px;
+  margin: 0;
+  padding-bottom: 20px;
+}
+
+.filter-widget__input {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 5px 0;
+}

@@ -1,0 +1,24 @@
+.editable-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 500px;
+  flex-wrap: wrap;
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.editable-field__label {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.editable-field__input input {
+  font-size: 20px
+}
+
+textarea[editext="input"] {
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+}

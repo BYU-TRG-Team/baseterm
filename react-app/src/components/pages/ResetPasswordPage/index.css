@@ -1,0 +1,30 @@
+.reset-password-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.reset-password-page__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.reset-password-page__form-group {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.reset-password-page__form-input {
+  cursor: pointer;
+}
+
+.reset-password-page__link {
+  font-size: 16px;
+}
+
+.reset-password-page__heading {
+  padding: 5px 0 20px 0;
+  margin: 0;
+}

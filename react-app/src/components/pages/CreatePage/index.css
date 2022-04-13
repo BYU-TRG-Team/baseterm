@@ -1,0 +1,22 @@
+.create-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.create-page__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.create-page__form-group {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.create-page__form-input {
+  cursor: pointer;
+  
+}

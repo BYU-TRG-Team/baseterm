@@ -1,0 +1,40 @@
+/* Custom styles taken from https://react-responsive-pagination.elantha.com/custom-styled-pagination */
+
+.pagination {
+  justify-content: center;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.page-item .page-link {
+  position: relative;
+  display: block;
+  margin: 0 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.page-item.active .page-link {
+  font-weight: bold;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

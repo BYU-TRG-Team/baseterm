@@ -1,0 +1,55 @@
+{
+  "private": true,
+  "dependencies": {
+    "@microsoft/fetch-event-source": "^2.0.1",
+    "axios": "^0.26.1",
+    "jwt-decode": "^3.1.2",
+    "react": "^16.4.1",
+    "react-bootstrap-modal": "^4.2.0",
+    "react-collapsible": "^2.8.4",
+    "react-dom": "^16.4.1",
+    "react-editext": "^4.2.1",
+    "react-list-drag-and-drop": "^0.9.2",
+    "react-notifications": "^1.7.3",
+    "react-pure-modal": "^2.1.0",
+    "react-responsive-pagination": "^1.4.1",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^4.0.3",
+    "react-super-responsive-table": "^5.2.0",
+    "spinners-react": "^1.0.7",
+    "util": "^0.12.4",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "dev": "PORT=4001 react-scripts start",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.0",
+    "@types/react": "^18.0.8",
+    "@types/react-dom": "^18.0.3",
+    "@types/react-js-pagination": "^3.0.4",
+    "@types/react-modal": "^3.13.1",
+    "@types/react-table": "^7.7.10",
+    "@types/uuid": "^8.3.4",
+    "typescript": "^4.6.4"
+  }
+}

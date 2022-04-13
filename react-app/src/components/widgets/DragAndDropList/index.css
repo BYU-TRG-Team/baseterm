@@ -1,0 +1,103 @@
+.drag-and-drop {
+  border-radius: 10px;
+  margin: 0px;
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.drag-and-drop__item {
+  font-family: sans-serif;
+  border-top: 1px solid #ffffff;
+  background-color: #eeeeee;
+  border-bottom: 1px solid #999999;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  padding: 10px;
+  padding-left: 8px;
+  opacity: 1;
+}
+
+.drag-and-drop__text-bubble {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: lightblue;
+  padding: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.drag-and-drop__text-bubble--orange {
+  background: orange;
+}
+
+.drag-and-drop__text-bubble--lowercase {
+  text-transform: none;
+}
+
+
+.drag-and-drop__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drag-and-drop__body {
+  margin: 0;
+  margin-bottom: 0.3rem;
+}
+
+.drag-and-drop__small {
+  font-size: 66%;
+  text-align: right;
+}
+
+.dragged .drag-and-drop__item {
+  opacity: 0.25;
+  border-top: 1px solid #999999;
+  border-bottom: 1px solid #ffffff;
+}
+
+.drag-and-drop__content {
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.drag-and-drop__footer {
+  padding: 20px;
+}
+
+.drag-and-drop__add-button {
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  padding: 10px;
+  font-size: 22px;
+  font-family: sans-serif;
+  border-top: 1px solid #ffffff;
+  background-color: #eeeeee;
+  border-bottom: 1px solid #999999;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  padding: 10px;
+  padding-left: 8px;
+  opacity: 1;
+}
+
+.drag-and-drop__content:hover {
+  text-decoration: underline;
+}
+
+.floating .drag-and-drop__item {
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px #666666;
+}
+
+.dl-item.floating {
+  width: 85%;
+}
+

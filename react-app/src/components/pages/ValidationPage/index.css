@@ -1,0 +1,18 @@
+.validation-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.validation-page__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.validation-page__form-group {
+  padding-bottom: 10px;
+}
+
+.validation-page__form-input {
+  cursor: pointer;
+}

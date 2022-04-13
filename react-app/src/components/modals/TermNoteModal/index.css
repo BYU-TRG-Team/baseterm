@@ -1,0 +1,15 @@
+.term-note-modal__sub-heading {
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.term-note-modal__hr {
+  margin: 20px 0;
+}
+
+.term-note-modal__label {
+  font-size: 20px;
+  margin-right: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+}

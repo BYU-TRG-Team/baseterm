@@ -1,0 +1,30 @@
+.edit-profile-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.edit-profile-page__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.edit-profile-page__form-group {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.edit-profile-page__form-input {
+  cursor: pointer;
+}
+
+.edit-profile-page__link {
+  font-size: 16px;
+}
+
+.edit-profile-page__heading {
+  padding: 5px 0 20px 0;
+  margin: 0;
+}

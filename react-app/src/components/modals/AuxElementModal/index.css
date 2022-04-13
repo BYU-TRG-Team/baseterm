@@ -1,0 +1,14 @@
+.aux-element-modal__hr {
+  margin: 20px 0;
+}
+
+.aux-element-modal__sub-heading {
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.aux-element-modal__input-label {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+}

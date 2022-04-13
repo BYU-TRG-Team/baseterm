@@ -1,0 +1,22 @@
+.new-person-ref-object-modal {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.new-person-ref-object-modal__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.new-person-ref-object-modal__form-group {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.new-person-ref-object-modal__form-input {
+  cursor: pointer;
+  
+}

@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.app__content {
+  flex: 1 1;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  border: 1px solid rgb(118, 118, 118);
+}
+
+
+/*
+* Override styles from "react-notifications" library
+*/
+.notification-container {
+  font-size: 20px;
+} 

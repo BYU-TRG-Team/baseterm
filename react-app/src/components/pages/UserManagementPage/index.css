@@ -1,0 +1,10 @@
+.user-management-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.user-management-page__actionable-text:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

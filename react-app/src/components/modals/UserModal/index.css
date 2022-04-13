@@ -1,0 +1,32 @@
+.user-modal__sub-heading {
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.user-modal__element-preview {
+  height: 100%;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0;
+}
+
+.user-modal__element-preview:hover {
+  text-decoration: underline;
+}
+
+.user-modal__button-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 15px;
+  justify-content: space-between;
+}
+
+.user-modal__hr {
+  margin: 20px 0;
+}

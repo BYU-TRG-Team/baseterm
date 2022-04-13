@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "(cd express-app/ && npm start)",
+    "build": "(cd react-app/ && npm ci && npm run build) && (cd express-app/ && npm ci --include=dev && npm run build)"
+  }
+}

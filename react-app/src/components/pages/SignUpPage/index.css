@@ -1,0 +1,26 @@
+.signup-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.signup-page__form {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.signup-page__form-group {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.signup-page__form-input {
+  cursor: pointer;
+}
+
+.signup-page__heading {
+  padding: 5px 0 20px 0;
+  margin: 0;
+}

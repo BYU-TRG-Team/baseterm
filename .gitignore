@@ -1,0 +1,11 @@
+# dependencies
+react-app/node_modules
+express-app/node_modules
+
+# production
+express-app/dist
+react-app/build
+
+# misc
+react-app/.env
+express-app/.env

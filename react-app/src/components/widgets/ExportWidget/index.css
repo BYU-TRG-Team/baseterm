@@ -1,0 +1,22 @@
+.export-widget {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  column-gap: 5px;
+  flex-wrap: wrap;
+}
+
+.export-widget__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.export-widget__form-group {
+  padding-bottom: 10px;
+}
+
+.export-widget__form-input {
+  cursor: pointer;
+}

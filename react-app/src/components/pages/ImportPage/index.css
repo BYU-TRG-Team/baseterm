@@ -1,0 +1,18 @@
+.import-page {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.import-page__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.import-page__form-group {
+  padding-bottom: 10px;
+}
+
+.import-page__form-input {
+  cursor: pointer;
+}

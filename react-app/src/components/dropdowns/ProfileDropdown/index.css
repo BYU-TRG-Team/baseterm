@@ -1,0 +1,47 @@
+.profile-dropdown {
+  min-width: 40px;
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.profile-dropdown__content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.profile-dropdown__content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.profile-dropdown__content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.profile-dropdown:hover .profile-dropdown__content {
+  display: block;
+}
+
+.profile-dropdown__profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-dropdown__profile-icon {
+  padding-right: 10px;
+}
+
+.profile-dropdown__link {
+  font-family: 'Quicksand', sans-serif;
+}
