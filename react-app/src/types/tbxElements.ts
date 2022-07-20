@@ -62,7 +62,7 @@ export enum TbxElementTitle {
   Date = "Date",
   TermNote = "Term Note",
   TermNoteGrp = "Term Note Group",
-  Tbx = "tbx"
+  Tbx = "Termbase"
 }
 
 export interface Termbase {
