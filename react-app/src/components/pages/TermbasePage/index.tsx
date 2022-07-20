@@ -296,7 +296,7 @@ const TermbasePage: React.FC = () => {
     'Part of Speech',
     'Approval Status',
     'Customers',
-    'Concept ID',
+    'Entry ID',
   ];
 
   const tableRows = termList.map((term) => [
@@ -428,7 +428,7 @@ const TermbasePage: React.FC = () => {
     {
       type: "dropdown",
       props: {
-        label: "Concept ID",
+        label: "Entry ID",
         onChange: filterHandlers.conceptId,
         dropdownList: conceptIdDropdown,
         value: conceptIdFilter,
