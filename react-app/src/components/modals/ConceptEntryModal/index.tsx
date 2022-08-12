@@ -5,7 +5,7 @@ import {
   LanguageSectionPreview,
   ConceptEntry
 } from "../../../types/tbxElements";
-import { getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
+import { formatLanguageCode, getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
 import { TbxElement } from "../../../types/tbxElements";
 import EditableField from "../../EditableField";
 import DragAndDropList from "../../widgets/DragAndDropList";
@@ -134,7 +134,11 @@ const ConceptEntryModal: React.FC<Props> = ({
             data: {
               ...langSec,
               elementType: TbxElement.LangSec,
-              value:  LANGUAGE_CODE_MAP[langSec.xmlLang].join(""),
+              value:  LANGUAGE_CODE_MAP[
+                formatLanguageCode(
+                  langSec.xmlLang
+                )
+              ].join(""),
             },
             id: index,
             elementType: TbxElement.LangSec,
