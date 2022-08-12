@@ -1,11 +1,16 @@
 import { LANGUAGE_CODE_MAP } from "../../../data/languages"
 import { TermPreview } from "../../../types/tbxElements"
+import { formatLanguageCode } from "../../../utils";
 import { DropdownList } from "../../widgets/FilterWidget/types"
 
 export const constructLanguage = (languageCode: string) => {
   if (languageCode.length === 0) return undefined;
   
-  return LANGUAGE_CODE_MAP[languageCode].join('/')
+  return LANGUAGE_CODE_MAP[
+    formatLanguageCode(
+      languageCode
+    )
+  ].join('/')
 }
 
 export const constructTermList = ({

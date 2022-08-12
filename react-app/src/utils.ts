@@ -214,3 +214,23 @@ export const isAuthorized = (
   }
 }
 
+export const formatLanguageCode = (
+  rawString: string
+) => {
+  const formattedChars = rawString.split("");
+  let isCountryCode = false;
+
+  formattedChars.forEach((char, index) => {
+    if (char === "-") {
+      isCountryCode = true;
+      return;
+    }
+
+    formattedChars[index] = 
+      isCountryCode ?
+      char.toLocaleUpperCase() :
+      char.toLocaleLowerCase();
+  });
+
+  return formattedChars.join("");
+}

@@ -50,7 +50,7 @@ import ConceptEntryModal from "../../modals/ConceptEntryModal";
 import LanguageSectionModal from "../../modals/LanguageSectionModal";
 import { emptyStringDefault } from "../../../globals";
 import { UUID } from "../../../types";
-import { getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
+import { formatLanguageCode, getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
 import AuthorizationWrapper from "../../AuthorizationWrapper";
 import NewPersonRefObjectModal from "../../modals/NewPersonRefObjectModal";
 
@@ -259,7 +259,11 @@ const TermbasePage: React.FC = () => {
         setLanguageDropdown(
           constructDropdownList(
             languages,
-            (language) => LANGUAGE_CODE_MAP[language][0]
+            (language) => LANGUAGE_CODE_MAP[
+              formatLanguageCode(
+                language
+              )
+            ][0]
           )
         );
         setSubjectFieldDropdown(
