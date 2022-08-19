@@ -42,6 +42,21 @@
   cursor: pointer;
 }
 
+.termbase-page__refresh-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.termbase-page__button-group {
+  display: flex;
+  gap: 10px;
+}
+
 .termbase-page__header {
   display: flex;
   justify-content: space-between;
