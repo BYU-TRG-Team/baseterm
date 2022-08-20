@@ -53,6 +53,7 @@ import { UUID } from "../../../types";
 import { formatLanguageCode, getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
 import AuthorizationWrapper from "../../AuthorizationWrapper";
 import NewPersonRefObjectModal from "../../modals/NewPersonRefObjectModal";
+import RefreshIcon from "../../icons/RefreshIcon";
 
 const authToken = getAuthToken();
 
@@ -290,6 +291,11 @@ const TermbasePage: React.FC = () => {
     })
   }
 
+  const initializeTermbase = () => {
+    handleGetTermbaseTerms();
+    handleGetTermbase();
+  }
+
   // Table data
   const tableHeaders = [
     'Term',
@@ -465,12 +471,7 @@ const TermbasePage: React.FC = () => {
     ]
   );
 
-  useEffect(
-    () => {
-      handleGetTermbase()
-    },
-    []
-  );
+  useEffect(initializeTermbase, []);
 
   useEffect(
     () => {
@@ -613,16 +614,26 @@ const TermbasePage: React.FC = () => {
       }
       <header className="termbase-page__header">
         <h2 className="termbase-page__heading">{ termbase?.name }</h2>  
-        <button 
-          type="button"
-          className="termbase-page__settings-button"
-          onClick={(e: React.MouseEvent<HTMLElement>) => {
-            e.stopPropagation();
-            setShowEditTermbaseModal(true);
-          }}
-        >
-          &#9881;
-        </button> 
+        <div className="termbase-page__button-group">
+          <button
+            type="button"
+            className="termbase-page__refresh-button"
+            aria-label="Refresh"
+            onClick={initializeTermbase}
+          >
+            <RefreshIcon ariaHidden={true} />
+          </button>
+          <button 
+            type="button"
+            className="termbase-page__settings-button"
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              e.stopPropagation();
+              setShowEditTermbaseModal(true);
+            }}
+          >
+            &#9881;
+          </button> 
+        </div>
       </header>
       <div className="termbase-page__button-wrapper">
         <AuthorizationWrapper
