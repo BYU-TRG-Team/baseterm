@@ -23,7 +23,6 @@ import FilterWidget, {
   Filters
 } from '../../widgets/FilterWidget';
 import {
-  constructLanguage,
   constructItemList,
   constructDropdownList,
   constructTermList
@@ -37,7 +36,6 @@ import Table from "../../Table";
 import Pagination from "../../widgets/Pagination";
 import './index.css';
 import LoadingSpinner from "../../LoadingSpinner";
-import { LANGUAGE_CODE_MAP } from '../../../data/languages';
 import { APPROVAL_STATUS_CODES } from '../../../data/approvalStatuses';
 import { NotificationManager } from 'react-notifications';
 import ExportWidgetComponent from '../../widgets/ExportWidget';
@@ -50,7 +48,7 @@ import ConceptEntryModal from "../../modals/ConceptEntryModal";
 import LanguageSectionModal from "../../modals/LanguageSectionModal";
 import { emptyStringDefault } from "../../../globals";
 import { UUID } from "../../../types";
-import { formatLanguageCode, getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
+import { getAuthToken, isAuthorized, retrieveLanguageByLanguageCode, tbxEntityTypeToHeading } from "../../../utils";
 import AuthorizationWrapper from "../../AuthorizationWrapper";
 import NewPersonRefObjectModal from "../../modals/NewPersonRefObjectModal";
 import RefreshIcon from "../../icons/RefreshIcon";
@@ -260,11 +258,7 @@ const TermbasePage: React.FC = () => {
         setLanguageDropdown(
           constructDropdownList(
             languages,
-            (language) => LANGUAGE_CODE_MAP[
-              formatLanguageCode(
-                language
-              )
-            ][0]
+            (language) => retrieveLanguageByLanguageCode(language)
           )
         );
         setSubjectFieldDropdown(
@@ -315,7 +309,7 @@ const TermbasePage: React.FC = () => {
       onClick={() => handleGetTerm(term.uuid)}>
      { term.value || emptyStringDefault }
     </button>,
-    constructLanguage(term.language) || emptyStringDefault,
+    retrieveLanguageByLanguageCode(term.language),
     term.synonyms.length ? 
       constructTermList({
         termList: term.synonyms,

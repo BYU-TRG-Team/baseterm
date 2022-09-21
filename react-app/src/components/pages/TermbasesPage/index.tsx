@@ -7,10 +7,9 @@ import LoadingSpinner from "../../LoadingSpinner";
 import { Termbase } from "../../../types/tbxElements";
 import Table from "../../Table";
 import './index.css';
-import { LANGUAGE_CODE_MAP } from '../../../data/languages';
 import { NotificationManager } from 'react-notifications';
 import Pagination from 'react-responsive-pagination';
-import { formatLanguageCode } from '../../../utils';
+import { retrieveLanguageByLanguageCode } from '../../../utils';
 
 const TermbasesPage: React.FC = () => {
   const [termbases, setTermbases] = useState<Termbase[]>([]);
@@ -32,11 +31,7 @@ const TermbasesPage: React.FC = () => {
         termbase.name
       }
     </a>,
-    LANGUAGE_CODE_MAP[
-      formatLanguageCode(
-        termbase.xmlLang
-      )
-    ]?.[0] || ""
+    retrieveLanguageByLanguageCode(termbase.xmlLang)
   ]));
 
   const handleGetTermbases = () => {
