@@ -5,6 +5,7 @@ import {
 import * as dataCategories from "./data/dataCategoryConfigs";
 import jwtDecode from 'jwt-decode';
 import { AuthToken, Role } from "./types/auth";
+import { LANGUAGE_CODE_MAP } from "./data/languages";
 
 export const downloadFile = (
   { 
@@ -214,10 +215,11 @@ export const isAuthorized = (
   }
 }
 
-export const formatLanguageCode = (
-  rawString: string
-) => {
-  const formattedChars = rawString.split("");
+/*
+* Format language code to have an uppercase country code
+*/
+const formatLanguageCode = (langCode: string) => {
+  const formattedChars = langCode.split("");
   let isCountryCode = false;
 
   formattedChars.forEach((char, index) => {
@@ -233,4 +235,19 @@ export const formatLanguageCode = (
   });
 
   return formattedChars.join("");
+}
+
+/*
+* Retrieves a language given an ISO-639 language code
+*
+* If a match is not found for a language code, the language code is returned
+*/
+export const retrieveLanguageByLanguageCode = (langCode: string) => {
+  const formattedLanguageCode = formatLanguageCode(langCode);
+  
+  return (
+    LANGUAGE_CODE_MAP[formattedLanguageCode] !== undefined ?
+    LANGUAGE_CODE_MAP[formattedLanguageCode].join("/") :
+    formattedLanguageCode
+  );
 }

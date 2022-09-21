@@ -5,7 +5,7 @@ import {
   LanguageSectionPreview,
   ConceptEntry
 } from "../../../types/tbxElements";
-import { formatLanguageCode, getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
+import { retrieveLanguageByLanguageCode, getAuthToken, isAuthorized, tbxEntityTypeToHeading } from "../../../utils";
 import { TbxElement } from "../../../types/tbxElements";
 import EditableField from "../../EditableField";
 import DragAndDropList from "../../widgets/DragAndDropList";
@@ -16,7 +16,6 @@ import { ModalProps } from "../types";
 import AddAuxElementModal from "../AddAuxElementModal";
 import { AuxInfoAuxElements } from "../../../data/auxElementGroups";
 import AddLanguageSectionModal from "../AddLanguageSectionModal";
-import { LANGUAGE_CODE_MAP } from "../../../data/languages";
 import { UUID } from "../../../types";
 import LoadingSpinner from "../../LoadingSpinner";
 import { deleteEntry, patchAuxElement, patchEntry, patchLangSec } from "../../../services/api/baseterm";
@@ -134,11 +133,7 @@ const ConceptEntryModal: React.FC<Props> = ({
             data: {
               ...langSec,
               elementType: TbxElement.LangSec,
-              value:  LANGUAGE_CODE_MAP[
-                formatLanguageCode(
-                  langSec.xmlLang
-                )
-              ].join(""),
+              value:  retrieveLanguageByLanguageCode(langSec.xmlLang),
             },
             id: index,
             elementType: TbxElement.LangSec,
