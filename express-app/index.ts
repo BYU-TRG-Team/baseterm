@@ -1,5 +1,8 @@
-import 'dotenv/config';
+import * as dotenv from 'dotenv';
 import express from "express";
+
+dotenv.config({ path: `${process.env.APP_DIR}/../.env` })
+
 import { constructServer } from "./app";
 
 const app = express();
