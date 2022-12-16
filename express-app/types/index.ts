@@ -3,3 +3,8 @@ export enum AppEnv {
   Prod = "prod"
 };
 
+export enum EmailProvider {
+  Zoho = "zoho",
+  SendGrid = "sendgrid"
+}
+

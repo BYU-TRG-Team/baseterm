@@ -9,3 +9,4 @@ react-app/build
 # misc
 react-app/.env
 express-app/.env
+.env
