@@ -17,7 +17,7 @@ Before installing any instance of BaseTerm, please reach out to the BYU TRG at b
 - PostgreSQL 14.x
 - Node.js 16.x
 
-## Setup NPM and a PostgreSQL instance
+### Setup NPM and a PostgreSQL instance
 
 - NPM (Node Package Manager) will be needed for the installation of BaseTerm. Please reference the [NPM documentation](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for setup.
 - A PostgreSQL instance will be needed for the BaseTerm application. A database will also need to be created in the PostgreSQL instance. **Both BaseTerm and the BaseTerm API can use the same PostgreSQL instance and database since they utilize separate schemas.** Please reference the [PostgreSQL downloads](https://www.postgresql.org/download/) for installers for various platforms.
