@@ -14,7 +14,7 @@ import AddAuxElementModal from "../AddAuxElementModal";
 import { patchAuxElement, patchTermNote } from "../../../services/api/baseterm";
 import { NotificationManager } from "react-notifications";
 import { termNoteDataCategories } from "../../../data/dataCategoryConfigs";
-import LanguageDropdown from "../../dropdowns/LanguageDropdown";
+import LanguageWidget from "../../widgets/LanguageWidget";
 import DataCategoryWidget from "../../widgets/DataCategoryWidget";
 import { deleteTermNote } from "../../../services/api/baseterm";
 import LoadingSpinner from "../../LoadingSpinner";
@@ -202,10 +202,10 @@ const TermNoteModal: React.FC<Props> = ({
           </label>
           <br />
           <br />
-          <LanguageDropdown 
-            onChange={(e) => {
+          <LanguageWidget 
+            onChange={(langCode) => {
               return patchTermNote({
-                langCode: e.target.value,
+                langCode,
                 termbaseUUID: data.termbaseUUID,
                 uuid: data.uuid,
                 onError: (errorMessage) => NotificationManager.error(errorMessage),
@@ -213,8 +213,8 @@ const TermNoteModal: React.FC<Props> = ({
               })
             }}
             selectedLangCode={data.xmlLang || ""}
-            nullable
             disabled={!hasWritePrivilege}
+            required={false}
           />
           {
             data.auxElements !== undefined ? 

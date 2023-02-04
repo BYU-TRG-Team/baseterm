@@ -19,7 +19,7 @@ import { UUID } from "../../../types";
 import LoadingSpinner from "../../LoadingSpinner";
 import { deleteLangSec, patchAuxElement, patchLangSec, patchTerm } from "../../../services/api/baseterm";
 import { NotificationManager } from "react-notifications";
-import LanguageDropdown from "../../dropdowns/LanguageDropdown";
+import LanguageWidget from "../../widgets/LanguageWidget";
 import AuthorizationWrapper from "../../AuthorizationWrapper";
 
 interface TermListItem extends TermPreview {
@@ -134,22 +134,23 @@ const LanguageSectionModal: React.FC<Props> = ({
         </label>
         <br />
         <br />
-        <LanguageDropdown 
-          selectedLangCode={
-            data.xmlLang === null ?
-            undefined :
-            data.xmlLang
-          }
-          onChange={(e) => {
+        <LanguageWidget 
+          required
+          onChange={(langCode) => {
             return patchLangSec({
-              langCode: e.target.value,
+              langCode,
               termbaseUUID: data.termbaseUUID,
               uuid: data.uuid,
               onError: (errorMessage) => NotificationManager.error(errorMessage),
               onSuccess: onUpdate,
             })
-          }}
+          }}  
           disabled={!hasWritePrivilege}
+          selectedLangCode={
+            data.xmlLang === null ?
+            undefined :
+            data.xmlLang
+          }
         />
         <h3 className="lang-sec-modal__sub-heading">
           Terms
