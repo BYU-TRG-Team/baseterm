@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { postTermbase } from "../../../services/api/baseterm";
 import LoadingSpinner from "../../LoadingSpinner";
-import LanguageDropdown from "../../dropdowns/LanguageDropdown";
+import LanguageWidget from "../../widgets/LanguageWidget";
 import { NotificationManager } from 'react-notifications';
 import './index.css';
 import { reloadPage } from "../../../utils";
@@ -53,7 +53,6 @@ const CreatePage: React.FC = () => {
           <label htmlFor="name">
             Base Name*:
           </label>
-          &nbsp;
           <input
             type="text"
             required
@@ -64,30 +63,30 @@ const CreatePage: React.FC = () => {
             disabled={isComplete}
           />
         </div>
-        <div className="create-page__form-group">
-          <label htmlFor="language">
-            Language*:
-          </label>
-          &nbsp;
-          <LanguageDropdown 
-            onChange={(e) => {
-              setLanguage(e.target.value)
-            }}
-            htmlId="language"
-            disabled={isComplete}
-          />
-        </div>
+        <br />
         <div className="create-page__form-group">
           <label htmlFor="description">
             Description:
           </label>
-          &nbsp;
           <textarea
             id="description"
             onChange={(event) => {
               setDescription(event.target.value);
             }}
             disabled={isComplete}
+          />
+        </div>
+        <br />
+        <div className="create-page__form-group">
+          <label htmlFor="language">
+            Language*:
+          </label>
+          <LanguageWidget 
+            onChange={(langCode) => setLanguage(langCode)}
+            htmlId="language"
+            disabled={isComplete}
+            selectedLangCode={language}
+            required
           />
         </div>
         <div className="create-page__form-group">

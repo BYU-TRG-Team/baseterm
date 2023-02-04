@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../../Modal"
 import './index.css';
-import LanguageDropdown from "../../dropdowns/LanguageDropdown";
-import { TbxAuxElement } from "../../../types/tbxElements";
+import LanguageWidget from "../../widgets/LanguageWidget";
 import { ModalProps } from "../types";
 import { LangCode, UUID } from "../../../types";
 import LoadingSpinner from "../../LoadingSpinner";
@@ -79,11 +78,11 @@ const AddLanguageSectionModal: React.FC<Props> = ({
             Language:
           </label>
           <br />
-          <LanguageDropdown 
-            htmlId="language"
-            onChange={(event) => {
-              setLangCode(event.target.value);
-            }}
+          <LanguageWidget 
+             htmlId="language"
+             onChange={(langCode) => setLangCode(langCode)}
+             required
+             selectedLangCode={langCode}
           />
           <br />
           <br />

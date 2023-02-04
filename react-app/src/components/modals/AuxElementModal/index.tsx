@@ -16,11 +16,11 @@ import {
 } from "../../../data/auxElementGroups";
 import { patchAuxElement } from "../../../services/api/baseterm";
 import { NotificationManager } from "react-notifications";
-import LanguageDropdown from "../../dropdowns/LanguageDropdown";
 import DataCategoryWidget from "../../widgets/DataCategoryWidget";
 import deleteAuxElement from "../../../services/api/baseterm/deleteAuxElement";
 import LoadingSpinner from "../../LoadingSpinner";
 import AuthorizationWrapper from "../../AuthorizationWrapper";
+import LanguageWidget from "../../widgets/LanguageWidget";
 
 
 interface Props extends ModalProps<AuxElement> {
@@ -178,7 +178,7 @@ const AuxElementModal: React.FC<Props> = ({
            dataCategories !== null &&
            <>
             <label className="aux-element-modal__input-label">
-              Data Category:
+              Data Category
             </label>
             <br />
             <br />
@@ -234,21 +234,21 @@ const AuxElementModal: React.FC<Props> = ({
               htmlFor="languageSection"
               className="aux-element-modal__input-label"
             >
-              Language:
+              Language
             </label>
             <br />
             <br />
-            <LanguageDropdown 
+            <LanguageWidget 
               selectedLangCode={
                 data.xmlLang === null ?
                 undefined :
                 data.xmlLang
               }
-              nullable
-              onChange={(e) => {
-                return patchAuxElement({
+              required={false}
+              onChange={(langCode) => {
+                patchAuxElement({
                   elementType: data.elementType,
-                  langCode: e.target.value,
+                  langCode,
                   termbaseUUID: data.termbaseUUID,
                   uuid: data.uuid,
                   onError: (errorMessage) => NotificationManager.error(errorMessage),

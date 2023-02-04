@@ -3,7 +3,7 @@ import Modal from "../../Modal"
 import './index.css';
 import { PostEntryEndpointResponse } from "../../../types/responses";
 import { Termbase } from "../../../types/tbxElements";
-import LanguageDropdown from "../../dropdowns/LanguageDropdown";
+import LanguageWidget from "../../widgets/LanguageWidget";
 import { ModalProps } from "../types";
 
 interface Props extends ModalProps<Termbase> {
@@ -70,26 +70,10 @@ const AddEntryModal: React.FC<Props> = ({
           <br />
           <br />
           <label 
-            htmlFor="languageSection"
-            className="add-entry-modal__input-label"
-          >
-            Initial Language Section:
-          </label>
-          <br />
-          <LanguageDropdown 
-            onChange={
-              (e) => setInitialLanguageSection(e.target.value)
-            }
-            htmlId="languageSection"
-            required={true}
-          />
-          <br />
-          <br />
-          <label 
             htmlFor="term"
             className="add-entry-modal__input-label"
           >
-            Initial Term:
+            Initial Term
           </label>
           <br />
           <input
@@ -101,6 +85,21 @@ const AddEntryModal: React.FC<Props> = ({
             onChange={(event) => {
               setInitialTerm(event.target.value);
             }}
+          />
+          <br />
+          <br />
+          <label 
+            htmlFor="languageSection"
+            className="add-entry-modal__input-label"
+          >
+            Initial Language Section
+          </label>
+          <br />
+          <LanguageWidget
+            selectedLangCode={initialLanguageSection}
+            onChange={(langCode) => setInitialLanguageSection(langCode)}
+            htmlId="languageSection"
+            required
           />
           <br />
           <br />

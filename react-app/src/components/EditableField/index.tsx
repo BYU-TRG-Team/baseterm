@@ -7,6 +7,7 @@ interface Props {
   onSave?: (value: string) => Promise<void>
   value: string,
   className?: string;
+  labelClassName?: string;
   enableEditing?: boolean;
 }
 
@@ -14,6 +15,7 @@ const EditableField: React.FC<Props> = ({
   onSave = async () => {},
   value,
   className,
+  labelClassName = "",
   label,
   enableEditing = true,
 }) => {
@@ -37,9 +39,9 @@ const EditableField: React.FC<Props> = ({
 
   return (
     <div className="editable-field">
-      <div className="editable-field__label">
+      <div className={labelClassName || "editable-field__label"}>
         <strong>
-          { label }:
+          { label }
         </strong>
       </div>
       <EditText
