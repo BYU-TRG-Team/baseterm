@@ -1,0 +1,31 @@
+services:
+  baseterm: 
+    build: .
+    container_name: baseterm
+    restart: always 
+    ports:
+      - "${HOST_PORT}:${BASETERM_PORT}"
+    environment:
+      - PORT=${BASETERM_PORT}
+      - APP_ENV=${APP_ENV}
+      - BASETERM_API=http://baseterm-api:4000
+      - DATABASE_URL=${DATABASE_URL}
+      - EMAIL_ADDRESS=${EMAIL_ADDRESS}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER}
+      - EMAIL_PROVIDER_API_KEY=${EMAIL_PROVIDER_API_KEY}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - ROLLBAR_API_TOKEN=${BASETERM_ROLLBAR_API_TOKEN}
+    depends_on:
+      - baseterm-api
+  baseterm-api:
+    build: ./baseterm-api
+    container_name: baseterm-api
+    restart: always
+    environment:
+      - PORT=${BASETERM_API_PORT}
+      - APP_ENV=${APP_ENV}
+      - DATABASE_URL=${DATABASE_URL}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - ROLLBAR_API_TOKEN=${BASETERM_API_ROLLBAR_API_TOKEN}
+      - MAX_CONNECTION_POOL=${MAX_CONNECTION_POOL}

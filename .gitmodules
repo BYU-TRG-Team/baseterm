@@ -1,0 +1,3 @@
+[submodule "baseterm-api"]
+	path = baseterm-api
+	url = https://github.com/BYU-TRG-Team/baseterm-api

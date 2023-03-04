@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Deploys baseterm via docker containers
+#
+# $1 - ENV file containing all env vars as defined in .env.example.docker-compose
+
+if [[ $# != 1 ]]; then
+  printf "Usage: %s <env file>" "$0"
+  exit 1
+fi
+
+declare ENV_FILE=$1
+SCRIPT_DIR=$(dirname -- "$( readlink -f -- "$0"; )")
+readonly SCRIPT_DIR
+
+docker compose \
+  --env-file "${ENV_FILE}" \
+  -f "${SCRIPT_DIR}/../docker-compose.yml" \
+  up \
+  --build
