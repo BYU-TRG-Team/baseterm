@@ -1,6 +1,6 @@
 # BaseTerm 
 
-An Express.js and React.js termbase management application that follows the [TermBase eXchange (TBX) standard](https://www.tbxinfo.net/). Currently, BaseTerm only supports the TBX-Basic dialect. The application makes use of the [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) for the underlying CRUD operations on TBX elements. The API is compatible with any TBX dialect since the underlying logic and PostgreSQL schemas follow the Core dialect. However, in order to support the BaseTerm application (which currently only supports TBX-Basic), the import endpoint currently rejects any TBX files that are not TBX-Basic. 
+A termbase management application that follows the [TermBase eXchange (TBX) standard](https://www.tbxinfo.net/). The application is an Express.js server that serves a React.js bundle. Currently, BaseTerm only supports the TBX-Basic dialect. The application makes use of the [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) for the underlying CRUD operations on TBX elements. The API is compatible with any TBX dialect since the underlying logic and PostgreSQL schemas follow the Core dialect. However, in order to support the BaseTerm application (which currently only supports TBX-Basic), the import endpoint currently rejects any TBX files that are not TBX-Basic. 
 
 ## Installation
 
@@ -32,6 +32,7 @@ Before installing any instance of BaseTerm, please reach out to the BYU TRG at b
 
 ```
 APP_ENV=<dev | prod>
+#PORT=<port number>
 BASETERM_API=<url for the associated BaseTerm API>
 DATABASE_URL=<url for the BaseTerm database>
 EMAIL_ADDRESS=<address from which emails will be sent>
@@ -44,9 +45,17 @@ ROLLBAR_API_TOKEN=<Rollbar logging token>
 
 ### Build
 
+#### Build the entire application
+
+To build the entire application at once, execute the following command from the root of the repo.
+
+```
+npm run build
+```
+
 #### React App
 
-This application operates as an express server that serves the React bundle. To generate the react bundle, the following commands will need to be run from the directory of the react-app.
+To generate the react bundle, the following commands will need to be run from the directory of the react-app.
 
 ```
 npm install
@@ -87,7 +96,7 @@ DATABASE_URL=<url for the BaseTerm database> npm explore @byu-trg/express-user-m
 
 ### Launch
 
-After all installation, the application can be launched with the following command from the directory of the express-app:
+After all installation, the application can be launched with the following command from the root of the repo or from the directory of the express-app:
 
 ```
 npm run start

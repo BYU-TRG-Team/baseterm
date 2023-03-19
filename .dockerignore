@@ -1,0 +1,11 @@
+node_modules/
+baseterm-api/
+Procfile
+Dockerfile
+.env
+.env.example
+.env.docker-compose
+.env.example.docker-compose
+.gitignore
+.gitmodules
+Procfile

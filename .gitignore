@@ -7,6 +7,5 @@ express-app/dist
 react-app/build
 
 # misc
-react-app/.env
-express-app/.env
 .env
+.env.docker-compose
