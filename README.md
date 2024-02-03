@@ -1,38 +1,69 @@
 # BaseTerm 
 
-A termbase management application that follows the [TermBase eXchange (TBX) standard](https://www.tbxinfo.net/). The application is an Express.js server that serves a React.js bundle. Currently, BaseTerm only supports the TBX-Basic dialect. The application makes use of the [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) for the underlying CRUD operations on TBX elements. The API is compatible with any TBX dialect since the underlying logic and PostgreSQL schemas follow the Core dialect. However, in order to support the BaseTerm application (which currently only supports TBX-Basic), the import endpoint currently rejects any TBX files that are not TBX-Basic. 
+A termbase management application that follows the [TermBase eXchange](https://www.tbxinfo.net) (TBX) v3 standard. The application makes use of the [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) for the underlying CRUD operations on TBX elements. Currently, the application only supports the TBX-Basic dialect.
 
 ## Installation
+
+### Contact the BYU TRG
+
+Before installing any instance of the BaseTerm API, please reach out to the BYU TRG at byutrg@gmail.com to establish a dialogue with the team. Please include any necessary contact info so that we can reach out to you for important version updates.
 
 ### Install BaseTerm API
 
 Please reference the [BaseTerm API repository](https://github.com/BYU-TRG-Team/baseterm-api) for setup instructions. 
-
-### Contact the BYU TRG
-
-Before installing any instance of BaseTerm, please reach out to the BYU TRG at byutrg@gmail.com to establish a dialogue with the team. Please include any necessary contact info so that we can reach out to you for important version updates.  
 
 ### Server Requirements
 
 - PostgreSQL 14.x
 - Node.js 16.x
 
-### Setup NPM and a PostgreSQL instance
+### Setup PostgreSQL instance
 
-- NPM (Node Package Manager) will be needed for the installation of BaseTerm. Please reference the [NPM documentation](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for setup.
-- A PostgreSQL instance will be needed for the BaseTerm application. A database will also need to be created in the PostgreSQL instance. **Both BaseTerm and the BaseTerm API can use the same PostgreSQL instance and database since they utilize separate schemas.** Please reference the [PostgreSQL downloads](https://www.postgresql.org/download/) for installers for various platforms.
+A PostgreSQL (postgres) instance will be needed for the BaseTerm application. A database will also need to be created in the postgres instance. Both BaseTerm and the BaseTerm API can use the same PostgreSQL instance and database since they utilize separate schemas.
 
-### Third Party Requirements
+#### Install
 
-- **Third party email vendor**. The `EMAIL_ADDRESS`, `EMAIL_PASSWORD`, `EMAIL_PROVIDER`, and `EMAIL_PROVIDER_API_KEY` environment variables exist for integration with a provider. Scorecard currently supports integration with **Zoho** and **SendGrid**. For Zoho, `EMAIL_ADDRESS`, `EMAIL_PASSWORD`, and `EMAIL_PROVIDER` will need to be configured. For SendGrid, `EMAIL_ADDRESS`,`EMAIL_PROVIDER`, and `EMAIL_PROVIDER_API_KEY` will need to be configured.
+Please reference the [postgres downloads](https://www.postgresql.org/download/) for installers for various platforms.
 
-- **Rollbar logging token (for BaseTerm server)**. Please contact the BYU TRG team to obtain this token.
+#### Setup database schemas
 
-### Environment Variables
+The postgres database will need to be setup with proper schemas using the [node-pg-migrate](https://www.npmjs.com/package/node-pg-migrate) postgres migration tool. The tool first needs to be installed using NPM. Once installed, the tool is run with a connection string for the postgres database.
+
+```
+npm ci
+```
+
+```
+DATABASE_URL=<url for the BaseTerm database> npm explore @byu-trg/express-user-management -- npm run migrate up
+```
+
+Please reference the [node-pg-migrate](https://www.npmjs.com/package/node-pg-migrate) docs for further use of this migration tool.
+
+### Build and deploy application
+
+#### Third Party Requirements
+
+- **Rollbar logging token** (optional).  Please contact the BYU TRG team to obtain this token. This is used to capture error logs.
+
+- **MQM Scorecard requires a third party email provider**. MQM Scorecard currently supports integration with either **Zoho Mail** or **SendGrid**. 
+
+##### Zoho Mail setup
+
+Visit the [Zoho Mail](https://www.zoho.com/mail) website for more information on setting up an email account. 
+
+If MFA is enabled, an [app-specific password](https://help.zoho.com/portal/en/kb/bigin/channels/email/articles/generate-an-app-specific-password) will need to be generated and used with MQM Scorecard instead of the account password.
+
+##### SendGrid setup
+
+Visit the [SendGrid](https://sendgrid.com) website for more information on setting up an email account. 
+
+An [API key](https://docs.sendgrid.com/ui/account-and-settings/api-keys) will need to be generated with full access to be used with MQM scorecard.
+
+#### Environment Variables
 
 ```
 APP_ENV=<dev | prod>
-#PORT=<port number>
+PORT=<port number>
 BASETERM_API=<url for the associated BaseTerm API>
 DATABASE_URL=<url for the BaseTerm database>
 EMAIL_ADDRESS=<address from which emails will be sent>
@@ -43,62 +74,18 @@ AUTH_SECRET=<64-bit CSPRNG secret>
 ROLLBAR_API_TOKEN=<Rollbar logging token>
 ```
 
-### Build
-
-#### Build the entire application
-
-To build the entire application at once, execute the following command from the root of the repo.
+#### Build
 
 ```
-npm run build
-```
-
-#### React App
-
-To generate the react bundle, the following commands will need to be run from the directory of the react-app.
-
-```
-npm install
+npm ci
 ```
 
 ```
 npm run build
 ```
 
-### Express App
-
-To install and build the express app, the following commands will need to be run from the directory of the express-app.
-
-```
-npm install
-```
-
-```
-npm run build
-```
-
-### Database Configuration (PostgreSQL migrations)
-
-**This step makes used of NPM packages installed from build.**
-
-Once you have the PostgreSQL instance running, the following commands will need to be run from the directory of the express-app to configure it:
-
-#### Migrate up
-```
-DATABASE_URL=<url for the BaseTerm database> npm explore @byu-trg/express-user-management -- npm run migrate up
-```
-
-#### Migrate down
-```
-DATABASE_URL=<url for the BaseTerm database> npm explore @byu-trg/express-user-management -- npm run migrate down
-```
-
-
-### Launch
-
-After all installation, the application can be launched with the following command from the root of the repo or from the directory of the express-app:
+#### Launch
 
 ```
 npm run start
 ```
-
