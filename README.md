@@ -6,7 +6,7 @@ A termbase management application that follows the [TermBase eXchange](https://w
 
 ### Contact the BYU TRG
 
-Before installing any instance of the BaseTerm API, please reach out to the BYU TRG at byutrg@gmail.com to establish a dialogue with the team. Please include any necessary contact info so that we can reach out to you for important version updates.
+Before installing any instance of BaseTerm, please reach out to the BYU TRG at byutrg@gmail.com to establish a dialogue with the team. Please include any necessary contact info so that we can reach out to you for important version updates.
 
 ### Install BaseTerm API
 
