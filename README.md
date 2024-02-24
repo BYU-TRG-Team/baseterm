@@ -1,6 +1,6 @@
 # BaseTerm 
 
-A termbase management application that follows the [TermBase eXchange](https://www.tbxinfo.net) (TBX) v3 standard. The application makes use of the [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) for the underlying CRUD operations on TBX elements. Currently, the application only supports the TBX-Basic dialect.
+A termbase management application that follows the [TermBase eXchange](https://www.tbxinfo.net) (TBX) v3 standard. The application makes use of the [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) for the underlying CRUD operations on TBX elements. Currently, the application supports the [TBX-Basic](https://www.tbxinfo.net/tbx-dialects/?id=2) dialect and [Data Category as Attribute](https://www.tbxinfo.net/dca-v-dct) (DCA) style. 
 
 ## Installation
 
