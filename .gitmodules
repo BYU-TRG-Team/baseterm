@@ -1,4 +1,4 @@
 [submodule "baseterm-api"]
 	path = baseterm-api
 	url = https://github.com/BYU-TRG-Team/baseterm-api
-	branch = v1.6.0
+	branch = v1.7.0
