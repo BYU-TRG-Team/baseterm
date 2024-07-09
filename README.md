@@ -45,19 +45,19 @@ Please reference the [node-pg-migrate](https://www.npmjs.com/package/node-pg-mig
 
 - **Rollbar logging token** (optional).  Please contact the BYU TRG team to obtain this token. This is used to capture error logs.
 
-- **MQM Scorecard requires a third party email provider**. MQM Scorecard currently supports integration with either **Zoho Mail** or **SendGrid**. 
+- **BaseTerm requires a third party email provider**. BaseTerm currently supports integration with either **Zoho Mail** or **SendGrid**. 
 
 ##### Zoho Mail setup
 
 Visit the [Zoho Mail](https://www.zoho.com/mail) website for more information on setting up an email account. 
 
-If MFA is enabled, an [app-specific password](https://help.zoho.com/portal/en/kb/bigin/channels/email/articles/generate-an-app-specific-password) will need to be generated and used with MQM Scorecard instead of the account password.
+If MFA is enabled, an [app-specific password](https://help.zoho.com/portal/en/kb/bigin/channels/email/articles/generate-an-app-specific-password) will need to be generated and used with BaseTerm instead of the account password.
 
 ##### SendGrid setup
 
 Visit the [SendGrid](https://sendgrid.com) website for more information on setting up an email account. 
 
-An [API key](https://docs.sendgrid.com/ui/account-and-settings/api-keys) will need to be generated with full access to be used with MQM scorecard.
+An [API key](https://docs.sendgrid.com/ui/account-and-settings/api-keys) will need to be generated with full access to be used with BaseTerm.
 
 #### Environment Variables
 
