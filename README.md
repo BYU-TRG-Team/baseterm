@@ -8,10 +8,9 @@ A termbase management application that follows the [TermBase eXchange](https://w
 
 - Docker Desktop with Docker Compose
 - Node.js with npm (to run the convenience commands)
-- A PostgreSQL 14 database
 - A Zoho Mail or SendGrid account for application email
 
-If PostgreSQL is running on your Mac or Windows host, use `host.docker.internal` as the hostname in `DATABASE_URL`.
+Docker Compose starts a local PostgreSQL 14 database automatically.
 
 ### 1. Configure the application
 
@@ -20,7 +19,7 @@ cp .env.example .env
 openssl rand -hex 32
 ```
 
-Put the generated secret in `AUTH_SECRET`, then fill in `DATABASE_URL` and the email settings in `.env`.
+Put the generated secret in `AUTH_SECRET`, then fill in the email settings in `.env`.
 
 ### 2. Build and start everything
 
@@ -33,9 +32,10 @@ This command:
 - downloads the BaseTerm API submodule;
 - builds both Docker images;
 - applies the API and user-management database migrations; and
+- securely prompts for the initial administrator if one does not exist; and
 - starts the application at <http://localhost:3000>.
 
-The migration commands are safe to rerun. After the first setup, start the existing containers with:
+The administrator password is hidden while entered and is never saved to `.env`. Setup and migration commands are safe to rerun. After the first setup, start the existing containers with:
 
 ```sh
 npm run docker:up
