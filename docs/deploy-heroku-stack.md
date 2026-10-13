@@ -34,7 +34,6 @@ At minimum, configure:
 - `APP_ENV=prod`
 - `AUTH_SECRET=<shared secret used by both apps>`
 - `BASETERM_API=<url of the deployed BaseTerm API>`
-- `DATABASE_URL=<provided by Heroku Postgres>`
 - `EMAIL_ADDRESS`
 - `EMAIL_PROVIDER`
 - `EMAIL_PASSWORD` or `EMAIL_PROVIDER_API_KEY`
@@ -54,7 +53,9 @@ LATEST_TAG=$(git describe --tags --abbrev=0)
 git checkout tags/"${LATEST_TAG}" -b "${LATEST_TAG}"
 ```
 
-3. Retrieve the database url from Heroku, and run the following commands to configure the database:
+3. The BaseTerm web app release phase runs the identity migration and seeds the default administrator automatically when the database has no verified administrator.
+
+4. Retrieve the database url from Heroku, and run the following commands to configure the database for the web app if you need to backfill an existing deployment:
 
 From the repository root:
 
@@ -67,10 +68,10 @@ APP_ENV=prod \
 PGSSLMODE=no-verify npm run migrate:user-management
 ```
 
-The API app should also run its own `npm run migrate up` command during deployment or release.
+5. The API app should also run its own `npm run migrate up` command during deployment or release.
 
-4. [Create a Git remote for Heroku](https://devcenter.heroku.com/articles/git#create-a-heroku-remote).
-5. [Deploy the git repo to Heroku](https://devcenter.heroku.com/articles/git#deploy-your-code).
+6. [Create a Git remote for Heroku](https://devcenter.heroku.com/articles/git#create-a-heroku-remote).
+7. [Deploy the git repo to Heroku](https://devcenter.heroku.com/articles/git#deploy-your-code).
 
 Use Heroku Git pushes for deployment. GitHub-to-Heroku sync does not resolve submodules reliably.
 
@@ -82,5 +83,6 @@ https://<app-name>.herokuapp.com
 
 ## Configure initial user
 
-1. Run `npm run setup` locally once to create a verified administrator, or use the administrator bootstrap flow built into setup logic.
-2. If you must bootstrap directly against Heroku, create a user and set `role_id = 3` and `verified = true` in the `identity.user` table.
+1. The default administrator is seeded automatically as `admin` / `ChangeMeNow!123` whenever the database has no verified administrator.
+2. The seeded administrator must change its password from the User Management page before it can use the rest of the application.
+3. Change the production password immediately after the first login.

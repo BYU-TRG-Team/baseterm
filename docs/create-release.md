@@ -34,6 +34,8 @@ APP_ENV=prod \
 PGSSLMODE=no-verify npm run migrate:user-management
 ```
 
+On a fresh or rebuilt database, the web app release phase now seeds the default administrator automatically as `admin` / `ChangeMeNow!123`. That account must change its password from User Management immediately after the first login.
+
 ### New deployment
 
 See the [Deploy Heroku stack guide](deploy-heroku-stack.md).

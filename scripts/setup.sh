@@ -59,59 +59,9 @@ echo "Applying user-management database migrations..."
 docker compose run --rm --no-deps baseterm \
   sh -c "cd express-app && npm run migrate:user-management"
 
-echo "Checking for an administrator..."
-set +e
-docker compose run -T --rm --no-deps baseterm \
-  npm --prefix express-app run bootstrap-admin -- --check
-admin_check_status=$?
-set -e
-
-if [[ "$admin_check_status" -eq 2 ]]; then
-  if [[ ! -t 0 ]]; then
-    echo "No administrator exists, and setup is not running interactively."
-    echo "Run npm run setup from a terminal to create the initial administrator."
-    exit 1
-  fi
-
-  read -r -p "Administrator username [admin]: " admin_username
-  admin_username="${admin_username:-admin}"
-
-  while [[ -z "${admin_email:-}" ]]; do
-    read -r -p "Administrator email: " admin_email
-  done
-
-  read -r -p "Administrator name [Administrator]: " admin_name
-  admin_name="${admin_name:-Administrator}"
-
-  while true; do
-    read -r -s -p "Administrator password (minimum 12 characters): " admin_password
-    echo
-    if (( ${#admin_password} < 12 )); then
-      echo "Password must be at least 12 characters."
-      continue
-    fi
-
-    read -r -s -p "Confirm administrator password: " admin_password_confirmation
-    echo
-    if [[ "$admin_password" != "$admin_password_confirmation" ]]; then
-      echo "Passwords do not match."
-      continue
-    fi
-    break
-  done
-
-  printf '%s' "$admin_password" |
-    docker compose run -T --rm --no-deps \
-      -e "INITIAL_ADMIN_USERNAME=$admin_username" \
-      -e "INITIAL_ADMIN_EMAIL=$admin_email" \
-      -e "INITIAL_ADMIN_NAME=$admin_name" \
-      baseterm npm --prefix express-app run bootstrap-admin
-
-  unset admin_password admin_password_confirmation
-elif [[ "$admin_check_status" -ne 0 ]]; then
-  echo "Unable to check for an existing administrator."
-  exit "$admin_check_status"
-fi
+echo "Seeding the default administrator if needed..."
+docker compose run --rm --no-deps baseterm \
+  npm --prefix express-app run bootstrap-admin
 
 echo "Starting BaseTerm..."
 docker compose up -d

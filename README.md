@@ -32,10 +32,10 @@ This command:
 - downloads the BaseTerm API submodule;
 - builds both Docker images;
 - applies the API and user-management database migrations; and
-- securely prompts for the initial administrator if one does not exist; and
+- seeds the default administrator if one does not already exist; and
 - starts the application at <http://localhost:3000>.
 
-The administrator password is hidden while entered and is never saved to `.env`. Setup and migration commands are safe to rerun. After the first setup, start the existing containers with:
+The default administrator is `admin` with password `ChangeMeNow!123`. The first time that account signs in, it must change its password from the User Management page before it can use the rest of the application. Setup and migration commands are safe to rerun. After the first setup, start the existing containers with:
 
 ```sh
 npm run docker:up
@@ -67,6 +67,8 @@ BaseTerm deploys as two Heroku apps:
 - the BaseTerm web app from this repository; and
 - the BaseTerm API from the `baseterm-api` submodule.
 
-Both apps should target supported Heroku runtimes. This repository is tested against Node 24. The API should use Node 24 and Python 3.14.
+Both apps should target supported Heroku runtimes. This repository is tested against Node 24. The API should use Node 24 and Python 3.14. The web app release phase now runs the identity migration and seeds the default administrator automatically when the database has no verified admin.
+
+The default administrator is `admin` / `ChangeMeNow!123`. Change that password immediately after the first production login from the User Management page.
 
 Before deploying an instance, contact the BYU TRG at byutrg@gmail.com to receive important version updates.

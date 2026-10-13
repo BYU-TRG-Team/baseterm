@@ -1,11 +1,13 @@
 import { UUID } from "../../../types";
 import { Role } from "../../../types/auth";
 import { 
+  AdminStatusEndpointResponse,
   PasswordResetSubmitEndpointResponse, 
   SignInEndpointEndpointResponse,
   GetUserEndpointResponse, 
   UpdateUserEndpointResponse,
-  GetAllUsersEndpointResponse
+  GetAllUsersEndpointResponse,
+  ResetUserPasswordEndpointResponse,
 } from "../../../types/responses";
 
 export interface SignInConfig {
@@ -78,10 +80,26 @@ export interface GetAllUsersConfig {
   onFinish?: () => void;
 }
 
+export interface GetAdminStatusConfig {
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: AdminStatusEndpointResponse) => void;
+  onFinish?: () => void;
+}
+
 export interface DeleteUserConfig {
   uuid: UUID,
   onInit?: () => void,
   onError: (errorMessage: string) => void;
   onSuccess?: () => void;
+  onFinish?: () => void;
+}
+
+export interface ResetUserPasswordConfig {
+  uuid: UUID,
+  password: string,
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: ResetUserPasswordEndpointResponse) => void;
   onFinish?: () => void;
 }

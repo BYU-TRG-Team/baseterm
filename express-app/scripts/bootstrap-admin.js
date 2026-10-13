@@ -5,6 +5,10 @@ const { Pool } = require("pg");
 
 const ADMIN_ROLE_ID = 3;
 const PASSWORD_MIN_LENGTH = 12;
+const DEFAULT_ADMIN_USERNAME = "admin";
+const DEFAULT_ADMIN_EMAIL = "admin@example.com";
+const DEFAULT_ADMIN_NAME = "Administrator";
+const DEFAULT_ADMIN_PASSWORD = "ChangeMeNow!123";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -27,14 +31,10 @@ const hasAdministrator = async () => {
 };
 
 const bootstrapAdministrator = async () => {
-  const username = process.env.INITIAL_ADMIN_USERNAME?.trim();
-  const email = process.env.INITIAL_ADMIN_EMAIL?.trim();
-  const name = process.env.INITIAL_ADMIN_NAME?.trim();
-  const password = require("fs").readFileSync(0, "utf8");
-
-  if (!username || !email || !name) {
-    throw new Error("Administrator username, email, and name are required.");
-  }
+  const username = DEFAULT_ADMIN_USERNAME;
+  const email = DEFAULT_ADMIN_EMAIL;
+  const name = DEFAULT_ADMIN_NAME;
+  const password = DEFAULT_ADMIN_PASSWORD;
 
   if (password.length < PASSWORD_MIN_LENGTH) {
     throw new Error(
@@ -82,13 +82,13 @@ const bootstrapAdministrator = async () => {
 
     await client.query(
       `INSERT INTO identity."user"
-        (username, verified, password, email, name, role_id)
-       VALUES ($1, true, $2, $3, $4, $5)`,
+        (username, verified, password, email, name, role_id, must_change_password)
+       VALUES ($1, true, $2, $3, $4, $5, true)`,
       [username, passwordHash, email, name, ADMIN_ROLE_ID],
     );
 
     await client.query("COMMIT");
-    console.log(`Administrator "${username}" created successfully.`);
+    console.log(`Administrator "${username}" seeded successfully.`);
   } catch (error) {
     await client.query("ROLLBACK");
     throw error;

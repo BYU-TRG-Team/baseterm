@@ -10,6 +10,10 @@ import proxy from "express-http-proxy";
 import cookieParser from "cookie-parser";
 import { EmailProvider } from "./types";
 import { isMultipartRequest } from "./utils";
+import {
+  adminPasswordEnforcementMiddleware,
+  registerAdminPasswordRoutes,
+} from "./adminAuth";
 
 const proxyMiddleware = (
   req: Request, 
@@ -62,7 +66,10 @@ export const constructServer = (
   } ()
 
   app.use(cookieParser());
+  app.use(express.json());
   app.use(express.static(path.join(process.env.APP_DIR as string, '../react-app/build')));
+  registerAdminPasswordRoutes(app);
+  app.use(adminPasswordEnforcementMiddleware);
   
   constructUserManagementAPI(
     app,

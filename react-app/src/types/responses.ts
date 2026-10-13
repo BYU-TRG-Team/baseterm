@@ -124,6 +124,15 @@ export interface UpdateUserEndpointResponse {
   newToken: string;
 }
 
+export interface AdminStatusEndpointResponse {
+  authenticated: boolean;
+  userId: UUID;
+  username: string;
+  roleId: User["role_id"];
+  verified: boolean;
+  mustChangePassword: boolean;
+}
+
 export interface GetUserEndpointResponse {
   email: string;
   username: string;
@@ -132,4 +141,9 @@ export interface GetUserEndpointResponse {
 
 export interface GetAllUsersEndpointResponse {
   users: User[];
+}
+
+export interface ResetUserPasswordEndpointResponse {
+  userId: UUID;
+  mustChangePassword: boolean;
 }
