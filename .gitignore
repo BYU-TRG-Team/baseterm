@@ -9,3 +9,4 @@ react-app/build
 # misc
 .env
 .env.docker-compose
+/docs/internal/

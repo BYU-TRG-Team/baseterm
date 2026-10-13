@@ -5,6 +5,10 @@
   },
   "scripts": {
     "start": "(cd express-app/ && npm start)",
-    "build": "(cd react-app/ && npm ci && npm run build) && (cd express-app/ && npm ci --include=dev && npm run build)"
+    "build": "(cd react-app/ && npm ci && npm run build) && (cd express-app/ && npm ci --include=dev && npm run build)",
+    "setup": "bash scripts/setup.sh",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
   }
 }
