@@ -19,7 +19,7 @@
   "scripts": {
     "bootstrap-admin": "node scripts/bootstrap-admin.js",
     "build": "tsc",
-    "start": "APP_DIR=$(pwd) forever ."
+    "start": "APP_DIR=$(pwd) node dist/index.js"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",

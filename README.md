@@ -7,7 +7,7 @@ A termbase management application that follows the [TermBase eXchange](https://w
 ### Requirements
 
 - Docker Desktop with Docker Compose
-- Node.js with npm (to run the convenience commands)
+- Node.js 24.x with npm 11 (to run the convenience commands)
 - A Zoho Mail or SendGrid account for application email
 
 Docker Compose starts a local PostgreSQL 14 database automatically.
@@ -59,5 +59,14 @@ git submodule update --init --recursive
 ## Configuration
 
 See [.env.example](.env.example) for all settings. Rollbar tokens are optional. For Zoho accounts with MFA, use an [app-specific password](https://help.zoho.com/portal/en/kb/bigin/channels/email/articles/generate-an-app-specific-password). For SendGrid, create an [API key](https://docs.sendgrid.com/ui/account-and-settings/api-keys).
+
+## Heroku Notes
+
+BaseTerm deploys as two Heroku apps:
+
+- the BaseTerm web app from this repository; and
+- the BaseTerm API from the `baseterm-api` submodule.
+
+Both apps should target supported Heroku runtimes. This repository is tested against Node 24. The API should use Node 24 and Python 3.14.
 
 Before deploying an instance, contact the BYU TRG at byutrg@gmail.com to receive important version updates.

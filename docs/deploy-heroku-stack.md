@@ -4,6 +4,11 @@
 
 The [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) will need to be deployed to Heroku first.
 
+Use supported Heroku runtimes:
+
+- BaseTerm web app: Node 24
+- BaseTerm API: Node 24 and Python 3.14
+
 ## Heroku setup 
 
 1. Create a Heroku account.
@@ -18,36 +23,56 @@ The [BaseTerm API](https://github.com/BYU-TRG-Team/baseterm-api) will need to be
 
 ## Create an account with a supported email provider
 
-Refer to [third-party requirements in the README](../README.md#third-party-requirements). 
+Refer to the configuration notes in [README.md](../README.md).
 
 ## Set environment variables
 
-Refer to [environment variables in the README](../README.md#environment-variables). Environment variables can either be set [using the CLI or the Heroku Dashboard](https://devcenter.heroku.com/articles/config-vars).
+Environment variables can either be set [using the CLI or the Heroku Dashboard](https://devcenter.heroku.com/articles/config-vars).
+
+At minimum, configure:
+
+- `APP_ENV=prod`
+- `AUTH_SECRET=<shared secret used by both apps>`
+- `BASETERM_API=<url of the deployed BaseTerm API>`
+- `DATABASE_URL=<provided by Heroku Postgres>`
+- `EMAIL_ADDRESS`
+- `EMAIL_PROVIDER`
+- `EMAIL_PASSWORD` or `EMAIL_PROVIDER_API_KEY`
+
+If you use a staging or production pipeline, set `HUSKY=0` for build environments.
 
 ## Deploy application to Heroku
 
 1. [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-2. Clone the repository and checkout the latest release:
+2. Clone the repository, initialize the API submodule, and checkout the latest release:
 
 ```
 git clone https://github.com/BYU-TRG-Team/baseterm.git
 cd baseterm
+git submodule update --init --recursive
 LATEST_TAG=$(git describe --tags --abbrev=0)
 git checkout tags/"${LATEST_TAG}" -b "${LATEST_TAG}"
 ```
 
 3. Retrieve the database url from Heroku, and run the following commands to configure the database:
 
-```
-npm ci
+From the repository root:
+
+```sh
+cd express-app
+HUSKY=0 npm ci
+cd ..
 DATABASE_URL=<url for the database> \
-APP_ENV=production \
-PGSSLMODE=no-verify \
-npm explore @byu-trg/express-user-management -- npm run migrate up
+APP_ENV=prod \
+npm run migrate:user-management
 ```
+
+The API app should also run its own `npm run migrate up` command during deployment or release.
 
 4. [Create a Git remote for Heroku](https://devcenter.heroku.com/articles/git#create-a-heroku-remote).
 5. [Deploy the git repo to Heroku](https://devcenter.heroku.com/articles/git#deploy-your-code).
+
+Use Heroku Git pushes for deployment. GitHub-to-Heroku sync does not resolve submodules reliably.
 
 Your application should now be available at the following url:
 
@@ -57,5 +82,5 @@ https://<app-name>.herokuapp.com
 
 ## Configure initial user
 
-1. Create a new user on BaseTerm.
-2. Give **admin** privileges to user by manually updating [role_id](https://github.com/BYU-TRG-Team/express-user-management?tab=readme-ov-file#authorization-structure) in the database.
+1. Run `npm run setup` locally once to create a verified administrator, or use the administrator bootstrap flow built into setup logic.
+2. If you must bootstrap directly against Heroku, create a user and set `role_id = 3` and `verified = true` in the `identity.user` table.
