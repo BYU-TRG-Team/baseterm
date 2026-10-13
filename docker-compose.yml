@@ -4,18 +4,18 @@ services:
     container_name: baseterm
     restart: always 
     ports:
-      - "${HOST_PORT}:${BASETERM_PORT}"
+      - "${HOST_PORT:-3000}:${BASETERM_PORT:-3000}"
     environment:
-      - PORT=${BASETERM_PORT}
+      - PORT=${BASETERM_PORT:-3000}
       - APP_ENV=${APP_ENV}
-      - BASETERM_API=http://baseterm-api:4000
-      - DATABASE_URL=${DATABASE_URL}
+      - BASETERM_API=http://baseterm-api:${BASETERM_API_PORT:-4000}
+      - DATABASE_URL=${COMPOSE_DATABASE_URL:-postgresql://baseterm:baseterm@postgres:5432/baseterm}
       - EMAIL_ADDRESS=${EMAIL_ADDRESS}
       - EMAIL_PASSWORD=${EMAIL_PASSWORD}
       - EMAIL_PROVIDER=${EMAIL_PROVIDER}
-      - EMAIL_PROVIDER_API_KEY=${EMAIL_PROVIDER_API_KEY}
+      - EMAIL_PROVIDER_API_KEY=${EMAIL_PROVIDER_API_KEY:-}
       - AUTH_SECRET=${AUTH_SECRET}
-      - ROLLBAR_API_TOKEN=${BASETERM_ROLLBAR_API_TOKEN}
+      - ROLLBAR_API_TOKEN=${BASETERM_ROLLBAR_API_TOKEN:-}
     depends_on:
       - baseterm-api
   baseterm-api:
@@ -23,9 +23,30 @@ services:
     container_name: baseterm-api
     restart: always
     environment:
-      - PORT=${BASETERM_API_PORT}
+      - PORT=${BASETERM_API_PORT:-4000}
       - APP_ENV=${APP_ENV}
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=${COMPOSE_DATABASE_URL:-postgresql://baseterm:baseterm@postgres:5432/baseterm}
       - AUTH_SECRET=${AUTH_SECRET}
-      - ROLLBAR_API_TOKEN=${BASETERM_API_ROLLBAR_API_TOKEN}
-      - MAX_CONNECTION_POOL=${MAX_CONNECTION_POOL}
+      - ROLLBAR_API_TOKEN=${BASETERM_API_ROLLBAR_API_TOKEN:-}
+      - MAX_CONNECTION_POOL=${MAX_CONNECTION_POOL:-20}
+    depends_on:
+      postgres:
+        condition: service_healthy
+  postgres:
+    image: postgres:14-alpine
+    container_name: baseterm-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: baseterm
+      POSTGRES_USER: baseterm
+      POSTGRES_PASSWORD: baseterm
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U baseterm -d baseterm"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+    volumes:
+      - baseterm-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  baseterm-postgres-data:

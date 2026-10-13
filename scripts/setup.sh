@@ -19,7 +19,7 @@ git submodule update --init --recursive
 if [[ ! -f .env ]]; then
   cp .env.example .env
   echo "Created .env from .env.example."
-  echo "Fill in DATABASE_URL, email credentials, and AUTH_SECRET, then run npm run setup again."
+  echo "Fill in the email credentials and AUTH_SECRET, then run npm run setup again."
   exit 1
 fi
 
@@ -28,7 +28,7 @@ env_value() {
 }
 
 missing=()
-for key in DATABASE_URL EMAIL_ADDRESS EMAIL_PROVIDER AUTH_SECRET; do
+for key in EMAIL_ADDRESS EMAIL_PROVIDER AUTH_SECRET; do
   if [[ -z "$(env_value "$key")" ]]; then
     missing+=("$key")
   fi
@@ -48,6 +48,9 @@ fi
 
 echo "Building BaseTerm and BaseTerm API..."
 docker compose build
+
+echo "Starting PostgreSQL..."
+docker compose up -d --wait postgres
 
 echo "Applying BaseTerm API database migrations..."
 docker compose run --rm --no-deps baseterm-api npm run migrate up
