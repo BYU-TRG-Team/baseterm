@@ -64,7 +64,7 @@ HUSKY=0 npm ci
 cd ..
 DATABASE_URL=<url for the database> \
 APP_ENV=prod \
-npm run migrate:user-management
+PGSSLMODE=no-verify npm run migrate:user-management
 ```
 
 The API app should also run its own `npm run migrate up` command during deployment or release.

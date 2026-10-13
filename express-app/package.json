@@ -10,6 +10,7 @@
     "express-http-proxy": "^1.6.3",
     "forever": "^4.0.3",
     "http-proxy-middleware": "^2.0.6",
+    "node-pg-migrate": "^8.0.3",
     "nodemailer": "^6.7.7",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "pg": "^8.7.3",
@@ -19,6 +20,7 @@
   "scripts": {
     "bootstrap-admin": "node scripts/bootstrap-admin.js",
     "build": "tsc",
+    "migrate:user-management": "node-pg-migrate -t pgmigrations_identity -m migrations up",
     "start": "APP_DIR=$(pwd) node dist/index.js"
   },
   "devDependencies": {

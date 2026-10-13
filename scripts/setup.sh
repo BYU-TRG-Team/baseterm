@@ -57,7 +57,7 @@ docker compose run --rm --no-deps baseterm-api npm run migrate up
 
 echo "Applying user-management database migrations..."
 docker compose run --rm --no-deps baseterm \
-  sh -c "cd express-app && npm explore @byu-trg/express-user-management -- npm run migrate up"
+  sh -c "cd express-app && npm run migrate:user-management"
 
 echo "Checking for an administrator..."
 set +e
