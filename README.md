@@ -8,7 +8,6 @@ A termbase management application that follows the [TermBase eXchange](https://w
 
 - Docker Desktop with Docker Compose
 - Node.js 24.x with npm 11 (to run the convenience commands)
-- A Zoho Mail or SendGrid account for application email
 
 Docker Compose starts a local PostgreSQL 14 database automatically.
 
@@ -19,7 +18,7 @@ cp .env.example .env
 openssl rand -hex 32
 ```
 
-Put the generated secret in `AUTH_SECRET`, then fill in the email settings in `.env`.
+Put the generated secret in `AUTH_SECRET`.
 
 ### 2. Build and start everything
 
@@ -35,7 +34,7 @@ This command:
 - seeds the default administrator if one does not already exist; and
 - starts the application at <http://localhost:3000>.
 
-The default administrator is `admin` with password `ChangeMeNow!123`. The first time that account signs in, it must change its password from the User Management page before it can use the rest of the application. Setup and migration commands are safe to rerun. After the first setup, start the existing containers with:
+The default administrator is `admin` with password `ChangeMeNow!123`. The first time that account signs in, it must change its password from `Edit Profile` before it can use the rest of the application. Public signups remain available, but those accounts stay pending until an administrator verifies them in User Management. Setup and migration commands are safe to rerun. After the first setup, start the existing containers with:
 
 ```sh
 npm run docker:up
@@ -58,7 +57,7 @@ git submodule update --init --recursive
 
 ## Configuration
 
-See [.env.example](.env.example) for all settings. Rollbar tokens are optional. For Zoho accounts with MFA, use an [app-specific password](https://help.zoho.com/portal/en/kb/bigin/channels/email/articles/generate-an-app-specific-password). For SendGrid, create an [API key](https://docs.sendgrid.com/ui/account-and-settings/api-keys).
+See [.env.example](.env.example) for all settings. Rollbar tokens are optional. Email settings are optional and are no longer required for account verification or password recovery.
 
 ## Heroku Notes
 
@@ -69,6 +68,6 @@ BaseTerm deploys as two Heroku apps:
 
 Both apps should target supported Heroku runtimes. This repository is tested against Node 24. The API should use Node 24 and Python 3.14. The web app release phase now runs the identity migration and seeds the default administrator automatically when the database has no verified admin.
 
-The default administrator is `admin` / `ChangeMeNow!123`. Change that password immediately after the first production login from the User Management page.
+The default administrator is `admin` / `ChangeMeNow!123`. Change that password immediately after the first production login from `Edit Profile`. Public signups remain pending until an administrator verifies them in User Management.
 
 Before deploying an instance, contact the BYU TRG at byutrg@gmail.com to receive important version updates.

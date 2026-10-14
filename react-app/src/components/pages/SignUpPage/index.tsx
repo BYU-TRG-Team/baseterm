@@ -28,7 +28,7 @@ const LoginPage: React.FC = () => {
             onError: (errorMessage) => NotificationManager.error(errorMessage),
             onFinish: () => setLoading(false),
             onSuccess: () => {
-              window.location.href = "/email-verification";
+              window.location.href = "/pending-approval";
             }
           })
         }} 

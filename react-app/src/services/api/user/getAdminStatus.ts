@@ -20,7 +20,7 @@ const getAdminStatus = async ({
     const errorMessage =
       err.response?.data?.error !== undefined
         ? err.response?.data?.error
-        : "There was a problem while checking administrator status.";
+        : "There was a problem while checking account status.";
 
     onError(errorMessage);
   } finally {

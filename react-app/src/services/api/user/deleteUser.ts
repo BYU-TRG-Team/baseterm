@@ -12,7 +12,7 @@ const deleteUser = async ({
 
   try {
     await requestHandler
-      .delete(`/user/${uuid}`)
+      .delete(`/admin/users/${uuid}`)
 
     onSuccess();
   } catch(err: any) {

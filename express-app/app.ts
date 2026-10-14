@@ -40,9 +40,10 @@ const proxyMiddleware = (
 export const constructServer = (
   app: Express,
 ) => {
-
   const smtpTransporter = function () {
-    switch (smtpConfig.provider.toLowerCase()) {
+    const provider = smtpConfig.provider?.toLowerCase();
+
+    switch (provider) {
       case EmailProvider.Zoho:
         return nodemailer.createTransport({
           service: smtpConfig.provider,
@@ -61,7 +62,11 @@ export const constructServer = (
         }))
   
       default:
-        throw new Error("Email provider unknown")
+        // Email-based verification/recovery is retired locally, so fall back
+        // to a no-op transport instead of requiring SMTP config at startup.
+        return nodemailer.createTransport({
+          jsonTransport: true,
+        });
     }
   } ()
 
@@ -77,7 +82,7 @@ export const constructServer = (
       logger,
       smtpConfig: {
         transporterConfig: smtpTransporter.transporter,
-        email: smtpConfig.email,
+        email: smtpConfig.email || "noreply@example.com",
       },
       authConfig: {
         secret: process.env.AUTH_SECRET as string

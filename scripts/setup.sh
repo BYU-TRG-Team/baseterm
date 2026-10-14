@@ -28,18 +28,11 @@ env_value() {
 }
 
 missing=()
-for key in EMAIL_ADDRESS EMAIL_PROVIDER AUTH_SECRET; do
+for key in AUTH_SECRET; do
   if [[ -z "$(env_value "$key")" ]]; then
     missing+=("$key")
   fi
 done
-
-email_provider="$(env_value EMAIL_PROVIDER | tr '[:upper:]' '[:lower:]')"
-if [[ "$email_provider" == "zoho" && -z "$(env_value EMAIL_PASSWORD)" ]]; then
-  missing+=("EMAIL_PASSWORD")
-elif [[ "$email_provider" == "sendgrid" && -z "$(env_value EMAIL_PROVIDER_API_KEY)" ]]; then
-  missing+=("EMAIL_PROVIDER_API_KEY")
-fi
 
 if (( ${#missing[@]} > 0 )); then
   echo "Complete these settings in .env: ${missing[*]}"

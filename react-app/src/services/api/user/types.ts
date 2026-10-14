@@ -2,12 +2,14 @@ import { UUID } from "../../../types";
 import { Role } from "../../../types/auth";
 import { 
   AdminStatusEndpointResponse,
+  CreateManagedUserEndpointResponse,
   PasswordResetSubmitEndpointResponse, 
   SignInEndpointEndpointResponse,
   GetUserEndpointResponse, 
   UpdateUserEndpointResponse,
   GetAllUsersEndpointResponse,
   ResetUserPasswordEndpointResponse,
+  UpdateManagedUserEndpointResponse,
 } from "../../../types/responses";
 
 export interface SignInConfig {
@@ -92,6 +94,31 @@ export interface DeleteUserConfig {
   onInit?: () => void,
   onError: (errorMessage: string) => void;
   onSuccess?: () => void;
+  onFinish?: () => void;
+}
+
+export interface CreateManagedUserConfig {
+  username: string,
+  email: string,
+  name: string,
+  password: string,
+  roleId: Role,
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: CreateManagedUserEndpointResponse) => void;
+  onFinish?: () => void;
+}
+
+export interface UpdateManagedUserConfig {
+  uuid: UUID,
+  username?: string,
+  email?: string,
+  name?: string,
+  verified?: boolean,
+  roleId?: Role,
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: UpdateManagedUserEndpointResponse) => void;
   onFinish?: () => void;
 }
 

@@ -18,9 +18,6 @@ import TermbasePage from './components/pages/TermbasePage';
 import NotFoundPage from './components/pages/NotFoundPage';
 import LoginPage from './components/pages/LoginPage';
 import SignUpPage from "./components/pages/SignUpPage";
-import EmailVerificationPage from './components/pages/EmailVerificationPage';
-import RecoverySentPage from "./components/pages/RecoverySentPage";
-import ResetPasswordSubmitPage from './components/pages/ResetPasswordSubmitPage';
 import { NotificationContainer } from 'react-notifications';
 import {
   unverifiedRedirect,
@@ -35,9 +32,9 @@ import {
 import 'react-notifications/lib/notifications.css';
 import { getAuthToken } from './utils';
 import { Role } from './types/auth';
-import ResetPasswordPage from './components/pages/ResetPasswordPage';
 import EditProfilePage from './components/pages/EditProfilePage';
 import UserManagementPage from './components/pages/UserManagementPage';
+import PendingApprovalPage from './components/pages/PendingApprovalPage';
 
 const PrivateRoute: React.FC<{
   roles: Role[],
@@ -80,20 +77,8 @@ const App: React.FC = () => (
             element={<SignUpPage />}
           />
           <Route 
-            path="/email-verification"
-            element={<EmailVerificationPage />}
-          />
-          <Route 
-            path="/recover"
-            element={<ResetPasswordPage />}
-          />
-          <Route 
-            path="/recover/sent"
-            element={<RecoverySentPage />}
-          />
-          <Route 
-            path="/recover/:token"
-            element={<ResetPasswordSubmitPage />}
+            path="/pending-approval"
+            element={<PendingApprovalPage />}
           />
           <Route 
             path="/edit-profile"

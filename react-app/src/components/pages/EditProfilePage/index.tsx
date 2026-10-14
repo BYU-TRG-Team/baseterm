@@ -4,7 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import './index.css';
 import getUser from "../../../services/api/user/getUser";
 import { getAuthToken } from "../../../utils";
-import { AuthToken, Role } from "../../../types/auth";
+import { AuthToken } from "../../../types/auth";
 import updateUser from "../../../services/api/user/updateUser";
 import jwtDecode from "jwt-decode";
 import { getAdminStatus, resetUserPassword } from "../../../services/api/user";
@@ -18,13 +18,9 @@ const EditProfilePage: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [mustChangePassword, setMustChangePassword] = useState(false);
-  const isAdmin = authToken?.role === Role.Admin;
   const forcePasswordChangeOnly =
-    isAdmin &&
-    (
-      mustChangePassword ||
-      new URLSearchParams(window.location.search).get("changePassword") === "1"
-    );
+    mustChangePassword ||
+    new URLSearchParams(window.location.search).get("changePassword") === "1";
 
   const loadUser = (
     authToken: AuthToken
@@ -44,16 +40,15 @@ const EditProfilePage: React.FC = () => {
     })
   }
 
-  const loadAdminStatus = async () => {
-    if (!isAdmin) {
-      return false;
-    }
-
+  const loadAccountStatus = async () => {
     let nextMustChangePassword = false;
 
     await getAdminStatus({
       onInit: () => setLoading(true),
-      onError: (errorMessage) => NotificationManager.error(errorMessage),
+      onError: (errorMessage) => {
+        setMustChangePassword(false);
+        NotificationManager.error(errorMessage);
+      },
       onFinish: () => setLoading(false),
       onSuccess: (response) => {
         nextMustChangePassword = response.mustChangePassword;
@@ -71,9 +66,9 @@ const EditProfilePage: React.FC = () => {
         return;
       }
 
-      const adminMustChangePassword = await loadAdminStatus();
+      const accountMustChangePassword = await loadAccountStatus();
 
-      if (adminMustChangePassword) {
+      if (accountMustChangePassword) {
         return;
       }
 
@@ -103,7 +98,7 @@ const EditProfilePage: React.FC = () => {
       {
         forcePasswordChangeOnly &&
         <p>
-          The default administrator password must be replaced before the rest of the application can be used.
+          Your temporary password must be replaced before the rest of the application can be used.
         </p>
       }
       {
@@ -190,60 +185,57 @@ const EditProfilePage: React.FC = () => {
           </div>
         </form>
       }
-      {
-        isAdmin &&
-        <div className="edit-profile-page__password-panel">
-          <h3 className="edit-profile-page__subheading">Change Password</h3>
-          <div className="edit-profile-page__password-fields">
-            <input
-              type="password"
-              placeholder="New password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Confirm new password"
-              value={passwordConfirmation}
-              onChange={(event) => setPasswordConfirmation(event.target.value)}
-            />
-          </div>
-          {
-            passwordTooShort &&
-            <p>Password must be at least 12 characters.</p>
-          }
-          {
-            passwordMismatch &&
-            <p>Passwords do not match.</p>
-          }
-          <button
-            type="button"
-            className="edit-profile-page__form-input"
-            disabled={!passwordReady || loading}
-            onClick={async () => {
-              await resetUserPassword({
-                uuid: authToken.id,
-                password,
-                onInit: () => setLoading(true),
-                onError: (errorMessage) => NotificationManager.error(errorMessage),
-                onFinish: () => setLoading(false),
-                onSuccess: async () => {
-                  setPassword("");
-                  setPasswordConfirmation("");
-                  await loadAdminStatus();
-                  NotificationManager.success("Password updated successfully");
-
-                  if (forcePasswordChangeOnly) {
-                    window.location.href = "/termbases";
-                  }
-                },
-              });
-            }}
-          >
-            Update Password
-          </button>
+      <div className="edit-profile-page__password-panel">
+        <h3 className="edit-profile-page__subheading">Change Password</h3>
+        <div className="edit-profile-page__password-fields">
+          <input
+            type="password"
+            placeholder="New password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm new password"
+            value={passwordConfirmation}
+            onChange={(event) => setPasswordConfirmation(event.target.value)}
+          />
         </div>
-      }
+        {
+          passwordTooShort &&
+          <p>Password must be at least 12 characters.</p>
+        }
+        {
+          passwordMismatch &&
+          <p>Passwords do not match.</p>
+        }
+        <button
+          type="button"
+          className="edit-profile-page__form-input"
+          disabled={!passwordReady || loading}
+          onClick={async () => {
+            await resetUserPassword({
+              uuid: authToken.id,
+              password,
+              onInit: () => setLoading(true),
+              onError: (errorMessage) => NotificationManager.error(errorMessage),
+              onFinish: () => setLoading(false),
+              onSuccess: async () => {
+                setPassword("");
+                setPasswordConfirmation("");
+                await loadAccountStatus();
+                NotificationManager.success("Password updated successfully");
+
+                if (forcePasswordChangeOnly) {
+                  window.location.href = "/termbases";
+                }
+              },
+            });
+          }}
+        >
+          Update Password
+        </button>
+      </div>
     </main>
   )
 }

@@ -3,7 +3,6 @@ import LoadingSpinner from "../../LoadingSpinner";
 import { NotificationManager } from 'react-notifications';
 import './index.css';
 import { getAdminStatus, signIn } from "../../../services/api/user";
-import { Link } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -76,7 +75,6 @@ const LoginPage: React.FC = () => {
           />
         </div>
       </form>
-      <Link to="/recover" className="login-page__link">Forgot Password?</Link>
     </main>
   )
 }

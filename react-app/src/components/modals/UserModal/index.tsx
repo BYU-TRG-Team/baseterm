@@ -9,7 +9,7 @@ import { NotificationManager } from "react-notifications";
 import { User } from "../../../types/auth";
 import deleteUser from "../../../services/api/user/deleteUser";
 import RoleDropdown from "../../dropdowns/RoleDropdown";
-import updateUser from "../../../services/api/user/updateUser";
+import updateManagedUser from "../../../services/api/user/updateManagedUser";
 import resetUserPassword from "../../../services/api/user/resetUserPassword";
 
 interface Props extends ModalProps<User> {
@@ -92,6 +92,12 @@ const UserModal: React.FC<Props> = ({
           enableEditing={false}
           label="Email"
         />
+        <p>
+          <strong>Status:</strong> {data.verified ? "Verified" : "Pending approval"}
+        </p>
+        <p>
+          <strong>Temporary password required:</strong> {data.must_change_password ? "Yes" : "No"}
+        </p>
         {
           mustChangeOwnPassword &&
           <p>
@@ -100,21 +106,45 @@ const UserModal: React.FC<Props> = ({
         }
         {
           !mustChangeOwnPassword &&
-          <RoleDropdown 
-            onChange={(roleId) => {
-              return updateUser({
-                uuid: data.user_id,
-                roleId,
-                onInit: () => setLoading(true),
-                onError: async (errorMessage) => NotificationManager.error(errorMessage),
-                onFinish: () => setLoading(false),
-                onSuccess: () => {
-                  onUpdate();
-                }
-              })
-            }}
-            selectedRole={data.role_id}
-          />
+          <>
+            <RoleDropdown 
+              onChange={(roleId) => {
+                return updateManagedUser({
+                  uuid: data.user_id,
+                  roleId,
+                  onInit: () => setLoading(true),
+                  onError: async (errorMessage) => NotificationManager.error(errorMessage),
+                  onFinish: () => setLoading(false),
+                  onSuccess: () => {
+                    onUpdate();
+                  }
+                })
+              }}
+              selectedRole={data.role_id}
+            />
+            <button
+              type="button"
+              onClick={async () => {
+                await updateManagedUser({
+                  uuid: data.user_id,
+                  verified: !data.verified,
+                  onInit: () => setLoading(true),
+                  onError: (errorMessage) => NotificationManager.error(errorMessage),
+                  onFinish: () => setLoading(false),
+                  onSuccess: () => {
+                    NotificationManager.success(
+                      data.verified
+                        ? "User moved back to pending approval"
+                        : "User verified successfully",
+                    );
+                    onUpdate();
+                  },
+                });
+              }}
+            >
+              {data.verified ? "Mark Pending Approval" : "Verify User"}
+            </button>
+          </>
         }
         <hr className="user-modal__hr" />
         <div>

@@ -21,10 +21,6 @@ Use supported Heroku runtimes:
     - Refer to [this guide](https://devcenter.heroku.com/articles/heroku-postgres-plans) to learn more about Heroku Postgres plans.
 
 
-## Create an account with a supported email provider
-
-Refer to the configuration notes in [README.md](../README.md).
-
 ## Set environment variables
 
 Environment variables can either be set [using the CLI or the Heroku Dashboard](https://devcenter.heroku.com/articles/config-vars).
@@ -34,9 +30,6 @@ At minimum, configure:
 - `APP_ENV=prod`
 - `AUTH_SECRET=<shared secret used by both apps>`
 - `BASETERM_API=<url of the deployed BaseTerm API>`
-- `EMAIL_ADDRESS`
-- `EMAIL_PROVIDER`
-- `EMAIL_PASSWORD` or `EMAIL_PROVIDER_API_KEY`
 
 If you use a staging or production pipeline, set `HUSKY=0` for build environments.
 
@@ -84,5 +77,6 @@ https://<app-name>.herokuapp.com
 ## Configure initial user
 
 1. The default administrator is seeded automatically as `admin` / `ChangeMeNow!123` whenever the database has no verified administrator.
-2. The seeded administrator must change its password from the User Management page before it can use the rest of the application.
+2. The seeded administrator must change its password from `Edit Profile` before it can use the rest of the application.
 3. Change the production password immediately after the first login.
+4. Public signups remain pending until an administrator verifies them from User Management.

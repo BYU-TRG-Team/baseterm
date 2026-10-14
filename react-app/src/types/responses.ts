@@ -143,6 +143,20 @@ export interface GetAllUsersEndpointResponse {
   users: User[];
 }
 
+export interface CreateManagedUserEndpointResponse {
+  userId: UUID;
+  verified: boolean;
+  mustChangePassword: boolean;
+  roleId: User["role_id"];
+}
+
+export interface UpdateManagedUserEndpointResponse {
+  userId: UUID;
+  verified: boolean;
+  mustChangePassword: boolean;
+  roleId: User["role_id"];
+}
+
 export interface ResetUserPasswordEndpointResponse {
   userId: UUID;
   mustChangePassword: boolean;

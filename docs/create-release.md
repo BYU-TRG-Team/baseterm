@@ -34,7 +34,7 @@ APP_ENV=prod \
 PGSSLMODE=no-verify npm run migrate:user-management
 ```
 
-On a fresh or rebuilt database, the web app release phase now seeds the default administrator automatically as `admin` / `ChangeMeNow!123`. That account must change its password from User Management immediately after the first login.
+On a fresh or rebuilt database, the web app release phase now seeds the default administrator automatically as `admin` / `ChangeMeNow!123`. That account must change its password from `Edit Profile` immediately after the first login. Public signups remain pending until an administrator verifies them from User Management.
 
 ### New deployment
 
