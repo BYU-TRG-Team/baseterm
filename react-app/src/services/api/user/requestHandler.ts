@@ -10,9 +10,9 @@ requestHandler.interceptors.response.use(
   (error) => {
     if (
       error?.response?.data?.code === "PASSWORD_CHANGE_REQUIRED" &&
-      window.location.pathname !== "/user-management"
+      window.location.pathname !== "/edit-profile"
     ) {
-      window.location.href = "/user-management?forcePasswordChange=1";
+      window.location.href = "/edit-profile?changePassword=1";
     }
 
     return Promise.reject(error);

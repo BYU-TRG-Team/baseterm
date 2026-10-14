@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
                 },
                 onSuccess: (response) => {
                   window.location.href = response.mustChangePassword
-                    ? "/user-management?forcePasswordChange=1"
+                    ? "/edit-profile?changePassword=1"
                     : "/termbases";
                 },
               });
