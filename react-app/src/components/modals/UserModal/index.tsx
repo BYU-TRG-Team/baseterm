@@ -47,6 +47,7 @@ const UserModal: React.FC<Props> = ({
     passwordConfirmation.length > 0 &&
     !passwordMismatch &&
     !passwordResetBlocked;
+  const verificationToggleDisabled = mustChangeOwnPassword || isOwnAccount;
 
   return (
     <Modal
@@ -122,28 +123,43 @@ const UserModal: React.FC<Props> = ({
               }}
               selectedRole={data.role_id}
             />
-            <button
-              type="button"
-              onClick={async () => {
-                await updateManagedUser({
-                  uuid: data.user_id,
-                  verified: !data.verified,
-                  onInit: () => setLoading(true),
-                  onError: (errorMessage) => NotificationManager.error(errorMessage),
-                  onFinish: () => setLoading(false),
-                  onSuccess: () => {
-                    NotificationManager.success(
-                      data.verified
-                        ? "User moved back to pending approval"
-                        : "User verified successfully",
-                    );
-                    onUpdate();
-                  },
-                });
-              }}
-            >
-              {data.verified ? "Mark Pending Approval" : "Verify User"}
-            </button>
+            <div className="user-modal__verification-row">
+              <strong>Verification</strong>
+              <label className="user-modal__toggle">
+                <input
+                  type="checkbox"
+                  checked={data.verified}
+                  disabled={verificationToggleDisabled}
+                  onChange={async (event) => {
+                    await updateManagedUser({
+                      uuid: data.user_id,
+                      verified: event.target.checked,
+                      onInit: () => setLoading(true),
+                      onError: (errorMessage) => NotificationManager.error(errorMessage),
+                      onFinish: () => setLoading(false),
+                      onSuccess: () => {
+                        NotificationManager.success(
+                          event.target.checked
+                            ? "User verified successfully"
+                            : "User moved back to pending approval",
+                        );
+                        onUpdate();
+                      },
+                    });
+                  }}
+                />
+                <span className="user-modal__toggle-slider" />
+                <span className="user-modal__toggle-label">
+                  {data.verified ? "Verified" : "Pending approval"}
+                </span>
+              </label>
+              {
+                isOwnAccount &&
+                <p className="user-modal__help-text">
+                  You cannot change verification on your own account.
+                </p>
+              }
+            </div>
           </>
         }
         <hr className="user-modal__hr" />
@@ -155,18 +171,18 @@ const UserModal: React.FC<Props> = ({
               : `Set a new password for ${isOwnAccount ? "this account" : data.username}.`}
           </p>
           <input
+            className="form-control"
             type="password"
             placeholder="New password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            style={{ width: "100%", marginBottom: "0.5rem" }}
           />
           <input
+            className="form-control user-modal__password-input"
             type="password"
             placeholder="Confirm new password"
             value={passwordConfirmation}
             onChange={(event) => setPasswordConfirmation(event.target.value)}
-            style={{ width: "100%", marginBottom: "0.5rem" }}
           />
           {
             passwordTooShort &&
@@ -177,6 +193,7 @@ const UserModal: React.FC<Props> = ({
             <p>Passwords do not match.</p>
           }
           <button
+            className="btn btn-primary"
             disabled={!passwordReady || loading}
             onClick={async () => {
               await resetUserPassword({
