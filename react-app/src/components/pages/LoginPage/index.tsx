@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import LoadingSpinner from "../../LoadingSpinner";
 import { NotificationManager } from 'react-notifications';
 import './index.css';
-import { signIn } from "../../../services/api/user";
-import { Link } from "react-router-dom";
+import { getAdminStatus, signIn } from "../../../services/api/user";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -24,8 +23,17 @@ const LoginPage: React.FC = () => {
             onInit: () => setLoading(true),
             onError: (errorMessage) => NotificationManager.error(errorMessage),
             onFinish: () => setLoading(false),
-            onSuccess: () => {
-              window.location.href = "/termbases";
+            onSuccess: async () => {
+              await getAdminStatus({
+                onError: () => {
+                  window.location.href = "/termbases";
+                },
+                onSuccess: (response) => {
+                  window.location.href = response.mustChangePassword
+                    ? "/edit-profile?changePassword=1"
+                    : "/termbases";
+                },
+              });
             }
           })
         }} 
@@ -67,7 +75,6 @@ const LoginPage: React.FC = () => {
           />
         </div>
       </form>
-      <Link to="/recover" className="login-page__link">Forgot Password?</Link>
     </main>
   )
 }

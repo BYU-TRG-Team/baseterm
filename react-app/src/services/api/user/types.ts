@@ -1,11 +1,14 @@
 import { UUID } from "../../../types";
 import { Role } from "../../../types/auth";
 import { 
-  PasswordResetSubmitEndpointResponse, 
+  AdminStatusEndpointResponse,
+  CreateManagedUserEndpointResponse,
   SignInEndpointEndpointResponse,
   GetUserEndpointResponse, 
   UpdateUserEndpointResponse,
-  GetAllUsersEndpointResponse
+  GetAllUsersEndpointResponse,
+  ResetUserPasswordEndpointResponse,
+  UpdateManagedUserEndpointResponse,
 } from "../../../types/responses";
 
 export interface SignInConfig {
@@ -32,22 +35,6 @@ export interface LogoutConfig {
   onInit?: () => void,
   onError: (errorMessage: string) => void;
   onSuccess?: () => void;
-  onFinish?: () => void;
-}
-
-export interface InitiatePasswordRecoveryConfig {
-  email: string,
-  onInit?: () => void,
-  onError: (errorMessage: string) => void;
-  onFinish?: () => void;
-}
-
-export interface SubmitPasswordRecoveryConfig {
-  password: string,
-  token: UUID,
-  onInit?: () => void,
-  onError: (errorMessage: string) => void;
-  onSuccess?: (response: PasswordResetSubmitEndpointResponse) => void;
   onFinish?: () => void;
 }
 
@@ -78,10 +65,51 @@ export interface GetAllUsersConfig {
   onFinish?: () => void;
 }
 
+export interface GetAdminStatusConfig {
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: AdminStatusEndpointResponse) => void;
+  onFinish?: () => void;
+}
+
 export interface DeleteUserConfig {
   uuid: UUID,
   onInit?: () => void,
   onError: (errorMessage: string) => void;
   onSuccess?: () => void;
+  onFinish?: () => void;
+}
+
+export interface CreateManagedUserConfig {
+  username: string,
+  email: string,
+  name: string,
+  password: string,
+  roleId: Role,
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: CreateManagedUserEndpointResponse) => void;
+  onFinish?: () => void;
+}
+
+export interface UpdateManagedUserConfig {
+  uuid: UUID,
+  username?: string,
+  email?: string,
+  name?: string,
+  verified?: boolean,
+  roleId?: Role,
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: UpdateManagedUserEndpointResponse) => void;
+  onFinish?: () => void;
+}
+
+export interface ResetUserPasswordConfig {
+  uuid: UUID,
+  password: string,
+  onInit?: () => void,
+  onError: (errorMessage: string) => void;
+  onSuccess?: (response: ResetUserPasswordEndpointResponse) => void;
   onFinish?: () => void;
 }
