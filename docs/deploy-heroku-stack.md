@@ -31,6 +31,8 @@ At minimum, configure:
 - `AUTH_SECRET=<shared secret used by both apps>`
 - `BASETERM_API=<url of the deployed BaseTerm API>`
 
+Email service credentials are not required for BaseTerm deployment. Account approval and password management are handled by administrators inside the app.
+
 If you use a staging or production pipeline, set `HUSKY=0` for build environments.
 
 ## Deploy application to Heroku

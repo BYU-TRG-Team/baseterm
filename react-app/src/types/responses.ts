@@ -116,10 +116,6 @@ export interface SignInEndpointEndpointResponse {
   token: string;
 }
 
-export interface PasswordResetSubmitEndpointResponse {
-  token: string;
-}
-
 export interface UpdateUserEndpointResponse {
   newToken: string;
 }

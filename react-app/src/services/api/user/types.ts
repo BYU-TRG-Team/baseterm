@@ -3,7 +3,6 @@ import { Role } from "../../../types/auth";
 import { 
   AdminStatusEndpointResponse,
   CreateManagedUserEndpointResponse,
-  PasswordResetSubmitEndpointResponse, 
   SignInEndpointEndpointResponse,
   GetUserEndpointResponse, 
   UpdateUserEndpointResponse,
@@ -36,22 +35,6 @@ export interface LogoutConfig {
   onInit?: () => void,
   onError: (errorMessage: string) => void;
   onSuccess?: () => void;
-  onFinish?: () => void;
-}
-
-export interface InitiatePasswordRecoveryConfig {
-  email: string,
-  onInit?: () => void,
-  onError: (errorMessage: string) => void;
-  onFinish?: () => void;
-}
-
-export interface SubmitPasswordRecoveryConfig {
-  password: string,
-  token: UUID,
-  onInit?: () => void,
-  onError: (errorMessage: string) => void;
-  onSuccess?: (response: PasswordResetSubmitEndpointResponse) => void;
   onFinish?: () => void;
 }
 

@@ -10,10 +10,6 @@ services:
       - APP_ENV=${APP_ENV}
       - BASETERM_API=http://baseterm-api:${BASETERM_API_PORT:-4000}
       - DATABASE_URL=${COMPOSE_DATABASE_URL:-postgresql://baseterm:baseterm@postgres:5432/baseterm}
-      - EMAIL_ADDRESS=${EMAIL_ADDRESS}
-      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
-      - EMAIL_PROVIDER=${EMAIL_PROVIDER}
-      - EMAIL_PROVIDER_API_KEY=${EMAIL_PROVIDER_API_KEY:-}
       - AUTH_SECRET=${AUTH_SECRET}
       - ROLLBAR_API_TOKEN=${BASETERM_ROLLBAR_API_TOKEN:-}
     depends_on:

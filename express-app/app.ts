@@ -1,14 +1,11 @@
 import express, { Express, NextFunction, Request, Response } from "express";
 import path from "path";
 import constructUserManagementAPI from "@byu-trg/express-user-management";
-import sendGridNodemailerTransport from "nodemailer-sendgrid-transport"
 import logger from "./logger";
-import smtpConfig from "./config/smtp.config";
 import dbConfig from "./config/db.config";
 import nodemailer from "nodemailer";
 import proxy from "express-http-proxy";
 import cookieParser from "cookie-parser";
-import { EmailProvider } from "./types";
 import { isMultipartRequest } from "./utils";
 import {
   adminPasswordEnforcementMiddleware,
@@ -40,35 +37,11 @@ const proxyMiddleware = (
 export const constructServer = (
   app: Express,
 ) => {
-  const smtpTransporter = function () {
-    const provider = smtpConfig.provider?.toLowerCase();
-
-    switch (provider) {
-      case EmailProvider.Zoho:
-        return nodemailer.createTransport({
-          service: smtpConfig.provider,
-          secure: true,
-          auth: {
-            user: smtpConfig.email,
-            pass: smtpConfig.password,
-          },
-        });
-  
-      case EmailProvider.SendGrid:
-        return nodemailer.createTransport(sendGridNodemailerTransport({
-          auth: {
-            api_key: smtpConfig.apiKey
-          },
-        }))
-  
-      default:
-        // Email-based verification/recovery is retired locally, so fall back
-        // to a no-op transport instead of requiring SMTP config at startup.
-        return nodemailer.createTransport({
-          jsonTransport: true,
-        });
-    }
-  } ()
+  // Account verification and password recovery are admin-managed, so email
+  // delivery is no longer part of the live authentication flow.
+  const smtpTransporter = nodemailer.createTransport({
+    jsonTransport: true,
+  });
 
   app.use(cookieParser());
   app.use(express.json());
@@ -82,7 +55,7 @@ export const constructServer = (
       logger,
       smtpConfig: {
         transporterConfig: smtpTransporter.transporter,
-        email: smtpConfig.email || "noreply@example.com",
+        email: "noreply@example.com",
       },
       authConfig: {
         secret: process.env.AUTH_SECRET as string

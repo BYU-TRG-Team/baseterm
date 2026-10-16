@@ -57,7 +57,7 @@ git submodule update --init --recursive
 
 ## Configuration
 
-See [.env.example](.env.example) for all settings. Rollbar tokens are optional. Email settings are optional and are no longer required for account verification or password recovery.
+See [.env.example](.env.example) for all settings. Rollbar tokens are optional. No email service credentials are required for local setup, account approval, or password management.
 
 ## Heroku Notes
 

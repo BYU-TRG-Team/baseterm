@@ -19,7 +19,7 @@ git submodule update --init --recursive
 if [[ ! -f .env ]]; then
   cp .env.example .env
   echo "Created .env from .env.example."
-  echo "Fill in the email credentials and AUTH_SECRET, then run npm run setup again."
+  echo "Fill in AUTH_SECRET, then run npm run setup again."
   exit 1
 fi
 
