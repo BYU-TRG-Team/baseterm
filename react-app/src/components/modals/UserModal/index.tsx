@@ -11,6 +11,7 @@ import deleteUser from "../../../services/api/user/deleteUser";
 import RoleDropdown from "../../dropdowns/RoleDropdown";
 import updateManagedUser from "../../../services/api/user/updateManagedUser";
 import resetUserPassword from "../../../services/api/user/resetUserPassword";
+import PasswordField from "../../PasswordField";
 
 interface Props extends ModalProps<User> {
   isOpen: boolean,
@@ -170,16 +171,14 @@ const UserModal: React.FC<Props> = ({
               ? "You must change your own administrator password before modifying anyone else."
               : `Set a new password for ${isOwnAccount ? "this account" : data.username}.`}
           </p>
-          <input
+          <PasswordField
             className="form-control"
-            type="password"
             placeholder="New password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <input
+          <PasswordField
             className="form-control user-modal__password-input"
-            type="password"
             placeholder="Confirm new password"
             value={passwordConfirmation}
             onChange={(event) => setPasswordConfirmation(event.target.value)}

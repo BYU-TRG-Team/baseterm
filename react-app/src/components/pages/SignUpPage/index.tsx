@@ -3,6 +3,7 @@ import LoadingSpinner from "../../LoadingSpinner";
 import { NotificationManager } from 'react-notifications';
 import './index.css';
 import { signUp } from "../../../services/api/user";
+import PasswordField from "../../PasswordField";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -81,8 +82,7 @@ const LoginPage: React.FC = () => {
             Password:
           </label>
           &nbsp;
-          <input
-            type="password"
+          <PasswordField
             required
             id="password"
             onChange={(event) => {

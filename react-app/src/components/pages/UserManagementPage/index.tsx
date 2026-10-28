@@ -8,6 +8,7 @@ import Table from "../../Table";
 import UserModal from "../../modals/UserModal";
 import "./index.css";
 import { AdminStatusEndpointResponse } from "../../../types/responses";
+import PasswordField from "../../PasswordField";
 
 const UserManagementPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -219,10 +220,9 @@ const UserManagementPage: React.FC = () => {
             </div>
             <div>
               <label className="user-management-page__label" htmlFor="new-user-password">Temporary password</label>
-              <input
+              <PasswordField
                 id="new-user-password"
                 className="form-control"
-                type="password"
                 placeholder="Temporary password"
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
@@ -231,10 +231,9 @@ const UserManagementPage: React.FC = () => {
             </div>
             <div>
               <label className="user-management-page__label" htmlFor="new-user-password-confirmation">Confirm temporary password</label>
-              <input
+              <PasswordField
                 id="new-user-password-confirmation"
                 className="form-control"
-                type="password"
                 placeholder="Confirm temporary password"
                 value={newPasswordConfirmation}
                 onChange={(event) => setNewPasswordConfirmation(event.target.value)}

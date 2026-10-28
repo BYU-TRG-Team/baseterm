@@ -8,6 +8,7 @@ import { AuthToken } from "../../../types/auth";
 import updateUser from "../../../services/api/user/updateUser";
 import jwtDecode from "jwt-decode";
 import { getAdminStatus, resetUserPassword } from "../../../services/api/user";
+import PasswordField from "../../PasswordField";
 
 const EditProfilePage: React.FC = () => {
   const authToken = getAuthToken();
@@ -188,14 +189,12 @@ const EditProfilePage: React.FC = () => {
       <div className="edit-profile-page__password-panel">
         <h3 className="edit-profile-page__subheading">Change Password</h3>
         <div className="edit-profile-page__password-fields">
-          <input
-            type="password"
+          <PasswordField
             placeholder="New password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <input
-            type="password"
+          <PasswordField
             placeholder="Confirm new password"
             value={passwordConfirmation}
             onChange={(event) => setPasswordConfirmation(event.target.value)}
