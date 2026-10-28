@@ -19,6 +19,7 @@ export type User = {
   username: string;
   verified: boolean;
   password: string;
+  must_change_password?: boolean;
   email: string;
   name: string;
   role_id: Role;

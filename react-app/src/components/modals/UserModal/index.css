@@ -30,3 +30,69 @@
 .user-modal__hr {
   margin: 20px 0;
 }
+
+.user-modal__verification-row {
+  margin-top: 16px;
+}
+
+.user-modal__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.user-modal__toggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.user-modal__toggle-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: background 0.2s ease;
+}
+
+.user-modal__toggle-slider::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+}
+
+.user-modal__toggle input:checked + .user-modal__toggle-slider {
+  background: #22c55e;
+}
+
+.user-modal__toggle input:checked + .user-modal__toggle-slider::after {
+  transform: translateX(20px);
+}
+
+.user-modal__toggle input:disabled + .user-modal__toggle-slider {
+  opacity: 0.6;
+}
+
+.user-modal__toggle-label {
+  color: #334155;
+}
+
+.user-modal__help-text {
+  margin-top: 8px;
+  color: #64748b;
+}
+
+.user-modal__password-input {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

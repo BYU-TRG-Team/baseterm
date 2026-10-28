@@ -116,12 +116,17 @@ export interface SignInEndpointEndpointResponse {
   token: string;
 }
 
-export interface PasswordResetSubmitEndpointResponse {
-  token: string;
-}
-
 export interface UpdateUserEndpointResponse {
   newToken: string;
+}
+
+export interface AdminStatusEndpointResponse {
+  authenticated: boolean;
+  userId: UUID;
+  username: string;
+  roleId: User["role_id"];
+  verified: boolean;
+  mustChangePassword: boolean;
 }
 
 export interface GetUserEndpointResponse {
@@ -132,4 +137,23 @@ export interface GetUserEndpointResponse {
 
 export interface GetAllUsersEndpointResponse {
   users: User[];
+}
+
+export interface CreateManagedUserEndpointResponse {
+  userId: UUID;
+  verified: boolean;
+  mustChangePassword: boolean;
+  roleId: User["role_id"];
+}
+
+export interface UpdateManagedUserEndpointResponse {
+  userId: UUID;
+  verified: boolean;
+  mustChangePassword: boolean;
+  roleId: User["role_id"];
+}
+
+export interface ResetUserPasswordEndpointResponse {
+  userId: UUID;
+  mustChangePassword: boolean;
 }
